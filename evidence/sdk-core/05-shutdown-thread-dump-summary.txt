@@ -1,0 +1,27 @@
+Manual shutdown incident
+
+Command:
+  /opt/domismp/bin/shutdown.sh 60
+
+Result:
+  Tomcat did not stop in time.
+  PID file was not removed.
+
+Observed state:
+  Java PID 2417 still alive
+  no Java listener on port 8080
+
+Important remaining thread:
+
+"pool-2-thread-1" ...
+  java.lang.Thread.State: TIMED_WAITING (parking)
+  at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(...)
+
+Unlike surrounding MySQL/Tomcat/logging infrastructure threads, this thread was not marked daemon.
+
+"DestroyJavaVM" was still present, waiting for process termination conditions.
+
+Outcome:
+  leftover JVM terminated after graceful shutdown had already stopped serving traffic
+  stale PID file removed
+  final systemd ExecStop uses: shutdown.sh 30 -force

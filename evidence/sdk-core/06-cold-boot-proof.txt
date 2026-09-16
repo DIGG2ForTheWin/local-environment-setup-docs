@@ -1,0 +1,192 @@
+xander@sdk-core:~$ hostname
+
+echo "=== BOOT ==="
+uptime
+
+echo
+echo "=== DATA MOUNT ==="
+findmnt /data
+df -h /data
+
+echo
+echo "=== MYSQL ==="
+systemctl is-active mysql
+
+echo
+echo "=== DOMISMP SERVICE ==="
+systemctl is-enabled domismp
+systemctl is-active domismp
+
+echo
+echo "=== JAVA PROCESS ==="
+ps -ef | grep '[o]rg.apache.catalina.startup.Bootstrap'
+
+echo
+echo "=== PORT 8080 ==="
+sudo ss -ltnp | grep ':8080'
+
+echo
+echo "=== LOCAL HTTP ==="
+curl -sS -o /dev/null -w 'SMP HTTP %{http_code}\n' \
+  http://127.0.0.1:8080/smp/
+
+echo
+echo "=== SYSTEMD STATUS ==="
+sudo systemctl --no-pager --full status domismp
+sdk-core
+=== BOOT ===
+ 08:51:39 up 1 min,  1 user,  load average: 1.19, 0.69, 0.27
+
+=== DATA MOUNT ===
+TARGET
+      SOURCE    FSTYPE OPTIONS
+/data /dev/sdb1 ext4   rw,relatime
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdb1        98G  456K   93G   1% /data
+
+=== MYSQL ===
+active
+
+=== DOMISMP SERVICE ===
+enabled
+active
+
+=== JAVA PROCESS ===
+domismp     1335       1 51 08:50 ?        00:00:39 /usr/lib/jvm/temurin-21-jdk-amd64/bin/java -Djava.util.logging.config.file=/opt/domismp/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms1024m -Xmx2048m -Dfile.encoding=UTF-8 -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dsun.io.useCanonCaches=false -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED -classpath /opt/domismp/bin/bootstrap.jar:/opt/domismp/bin/tomcat-juli.jar -Dcatalina.base=/opt/domismp -Dcatalina.home=/opt/domismp -Djava.io.tmpdir=/opt/domismp/temp org.apache.catalina.startup.Bootstrap start
+
+=== PORT 8080 ===
+[sudo] password for xander:
+LISTEN 0      100                     *:8080             *:*    users:(("java",pid=1335,fd=45))
+
+=== LOCAL HTTP ===
+SMP HTTP 200
+
+=== SYSTEMD STATUS ===
+● domismp.service - DomiSMP 5.2.1.3
+     Loaded: loaded (/etc/systemd/system/domismp.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2026-09-16 08:50:21 UTC; 1min 21s ago
+    Process: 1328 ExecStart=/opt/domismp/bin/startup.sh (code=exited, status=0/SUCCESS)
+   Main PID: 1335 (java)
+      Tasks: 38 (limit: 6955)
+     Memory: 1.0G (peak: 1.0G)
+        CPU: 40.410s
+     CGroup: /system.slice/domismp.service
+             └─1335 /usr/lib/jvm/temurin-21-jdk-amd64/bin/java -Djava.util.logging.config.file=/opt/domismp/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms1024m -Xmx2048m -Dfile.encoding=UTF-8 -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dsun.io.useCanonCaches=false -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED -classpath /opt/domismp/bin/bootstrap.jar:/opt/domismp/bin/tomcat-juli.jar -Dcatalina.base=/opt/domismp -Dcatalina.home=/opt/domismp -Djava.io.tmpdir=/opt/domismp/temp org.apache.catalina.startup.Bootstrap start
+
+Sep 16 08:50:21 sdk-core systemd[1]: Starting domismp.service - DomiSMP 5.2.1.3...
+Sep 16 08:50:21 sdk-core startup.sh[1328]: Tomcat started.
+Sep 16 08:50:21 sdk-core systemd[1]: Started domismp.service - DomiSMP 5.2.1.3.
+xander@sdk-core:~$ echo "=== DOMISMP CURRENT-BOOT ERRORS ==="
+
+sudo journalctl -b -u domismp --no-pager | \
+grep -Ei 'error|exception|failed|severe|caused by' | \
+tail -80
+=== DOMISMP CURRENT-BOOT ERRORS ===
+xander@sdk-core:~$ echo "=== CURRENT BOOT DEPLOYMENT ==="
+
+sudo journalctl -b -u domismp --no-pager | \
+grep -E 'Deployment of web application archive.*smp.war|Server startup in' | \
+tail -20
+=== CURRENT BOOT DEPLOYMENT ===
+xander@sdk-core:~$ sudo tail -n 100 /opt/domismp/logs/catalina.out
+2026-09-16 08:50:42,835 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.credentials.reset_request.url.validMinutes] --> [90]
+2026-09-16 08:50:42,836 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.domain.default] --> []
+2026-09-16 08:50:42,836 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.http.forwarded.headers.enabled] --> [false]
+2026-09-16 08:50:42,836 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.http.header.security.policy] --> []
+2026-09-16 08:50:42,837 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.http.httpStrictTransportSecurity.maxAge] --> [31536000]
+2026-09-16 08:50:42,837 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.instance.name] --> [Test DomiSMP Instance]
+2026-09-16 08:50:42,837 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.keystore.filename] --> [smp-keystore.p12]
+2026-09-16 08:50:42,838 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.keystore.password] --> [*******]
+2026-09-16 08:50:42,838 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.keystore.password.decrypted] --> [*******]
+2026-09-16 08:50:42,838 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.keystore.type] --> [PKCS12]
+2026-09-16 08:50:42,839 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.noproxy.hosts] --> [localhost|127.0.0.1]
+2026-09-16 08:50:42,839 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.passwordPolicy.expired.forceChange] --> [true]
+2026-09-16 08:50:42,839 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.passwordPolicy.validationMessage] --> [Minimum length: 16 characters;Maximum length: 32 characters;At least one letter in lowercase;At least one letter in uppercase;At least one digit;At least one special character;Must not be same as existing password]
+2026-09-16 08:50:42,840 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.passwordPolicy.validationRegex] --> [^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[~`!@#$%^&+=\-_<>.,?:;*/()|\[\]{}'"\\]).{16,32}$]
+2026-09-16 08:50:42,840 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.passwordPolicy.validDays] --> [90]
+2026-09-16 08:50:42,841 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.passwordPolicy.warning.beforeExpiration] --> [15]
+2026-09-16 08:50:42,841 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.property.refresh.cronJobExpression] --> [0 48 */1 * * *]
+2026-09-16 08:50:42,841 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.proxy.host] --> []
+2026-09-16 08:50:42,842 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.proxy.password] --> [Null/Empty/Blank]
+2026-09-16 08:50:42,842 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.proxy.port] --> [80]
+2026-09-16 08:50:42,842 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.proxy.user] --> []
+2026-09-16 08:50:42,842 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.callback.url] --> [http://localhost:8080/smp/ui/public/rest/security/cas]
+2026-09-16 08:50:42,843 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.registration.confirmation.mandatory] --> [false]
+2026-09-16 08:50:42,843 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.registration.enabled] --> [true]
+2026-09-16 08:50:42,843 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.registration.mapping] --> [EMAIL:${email}|FULL_NAME:${firstName} ${lastName}]
+2026-09-16 08:50:42,843 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.smp.urlPath] --> [/smp/ui/public/rest/security/cas]
+2026-09-16 08:50:42,844 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.smp.user.data.urlPath] --> [userdata/myAccount.cgi]
+2026-09-16 08:50:42,845 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.token.validation.groups] --> [DIGIT_SMP|DIGIT_ADMIN]
+2026-09-16 08:50:42,845 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.token.validation.params] --> [acceptStrengths:BASIC,CLIENT_CERT|assuranceLevel:TOP]
+2026-09-16 08:50:42,845 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.token.validation.urlPath] --> [laxValidate]
+2026-09-16 08:50:42,845 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.ui.label] --> [EU Login]
+2026-09-16 08:50:42,845 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.url] --> [http://localhost:8080/cas/]
+2026-09-16 08:50:42,846 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.sso.cas.urlPath.login] --> [login]
+2026-09-16 08:50:42,846 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.truststore.filename] --> [smp-truststore.p12]
+2026-09-16 08:50:42,846 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.truststore.password] --> [*******]
+2026-09-16 08:50:42,846 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.truststore.password.decrypted] --> [*******]
+2026-09-16 08:50:42,847 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.truststore.type] --> [PKCS12]
+2026-09-16 08:50:42,847 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.ui.authentication.types] --> [PASSWORD]
+2026-09-16 08:50:42,847 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.ui.session.idle_timeout.admin] --> [300]
+2026-09-16 08:50:42,848 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.ui.session.idle_timeout.user] --> [1800]
+2026-09-16 08:50:42,848 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.ui.session.max-age] --> []
+2026-09-16 08:50:42,848 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.ui.session.path] --> []
+2026-09-16 08:50:42,848 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.ui.session.secure] --> [false]
+2026-09-16 08:50:42,849 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.ui.session.strict] --> [Lax]
+2026-09-16 08:50:42,851 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.user.login.fail.delay] --> [1000]
+2026-09-16 08:50:42,851 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.user.login.maximum.attempt] --> [5]
+2026-09-16 08:50:42,852 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.user.login.suspension.time] --> [3600]
+2026-09-16 08:50:42,854 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.vault.authentication.type] --> [token]
+2026-09-16 08:50:42,854 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.vault.authentication.value] --> []
+2026-09-16 08:50:42,854 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.vault.configuration] --> []
+2026-09-16 08:50:42,854 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.vault.enabled] --> [false]
+2026-09-16 08:50:42,855 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.vault.implementation.classname] --> []
+2026-09-16 08:50:42,855 [] [] [] [main]  INFO e.e.e.e.s.u.PropertyUtils:320 -   [smp.vault.write.enabled] --> [true]
+2026-09-16 08:50:43,133 [] [] [] [main]  INFO e.e.e.e.s.c.i.SMPLocaleFileSystemInitializer:48 - Initializing SMP locale filesystem
+2026-09-16 08:50:43,137 [] [] [] [main]  INFO e.e.e.e.s.s.SMPLanguageResourceService:280 - Updating translation file [/data/domismp/locales/ui_en.json]
+2026-09-16 08:50:43,235 [] [] [] [main]  INFO e.e.e.e.s.s.SMPLanguageResourceService:303 - No changes were made to the translation file [/data/domismp/locales/ui_en.json]
+2026-09-16 08:50:43,236 [] [] [] [main]  INFO e.e.e.e.s.s.SMPLanguageResourceService:280 - Updating translation file [/data/domismp/locales/mail-messages_en.json]
+2026-09-16 08:50:43,242 [] [] [] [main]  INFO e.e.e.e.s.s.SMPLanguageResourceService:303 - No changes were made to the translation file [/data/domismp/locales/mail-messages_en.json]
+2026-09-16 08:50:43,243 [] [] [] [main]  INFO e.e.e.e.s.s.SMPLanguageResourceService:173 - Updating translation file [/data/domismp/locales/error-messages_en.json]
+2026-09-16 08:50:43,253 [] [] [] [main]  INFO e.e.e.e.s.s.SMPLanguageResourceService:199 - Local file [/data/domismp/locales/error-messages_en.json] changed [false]
+2026-09-16 08:50:44,196 [] [] [] [main]  INFO e.e.e.e.s.c.ConvertersRegistrar:54 - Finished registering custom converters: [eu.europa.ec.edelivery.smp.conversion.CertificateROToDBCertificateConverter@597e3e11, eu.europa.ec.edelivery.smp.conversion.CredentialROToDBCredentialConverter@7979f5aa, eu.europa.ec.edelivery.smp.conversion.DBCertificateToCertificateROConverter@173a1d3e, eu.europa.ec.edelivery.smp.conversion.DBCredentialToCredentialROConverter@3471c9c, eu.europa.ec.edelivery.smp.conversion.DBDocumentVersionEventToDocumentVersionEventROConverter@2e2aa044, eu.europa.ec.edelivery.smp.conversion.DBDocumentVersionToDocumentVersionROConverter@5dc5503c, eu.europa.ec.edelivery.smp.conversion.DBDomainConfToDomainPropROConverter@2ec1152, eu.europa.ec.edelivery.smp.conversion.DBDomainDocTmplToDomainDocTmplROConverter@34256267, eu.europa.ec.edelivery.smp.conversion.DBDomainMemberToMemberROConverter@78213955, eu.europa.ec.edelivery.smp.conversion.DBDomainToDomainPublicROConverter@3d6a6dbe, eu.europa.ec.edelivery.smp.conversion.DBDomainToDomainROConverter@548ca728, eu.europa.ec.edelivery.smp.conversion.DBExtensionToExtensionROConverter@c54aee6, eu.europa.ec.edelivery.smp.conversion.DBGroupMemberToMemberROConverter@5e26dbc2, eu.europa.ec.edelivery.smp.conversion.DBGroupToGroupROConverter@36316ab3, eu.europa.ec.edelivery.smp.conversion.DBResourceDefToResourceDefinitionROConverter@250e1e55, eu.europa.ec.edelivery.smp.conversion.DBResourceMemberToMemberROConverter@39d98d13, eu.europa.ec.edelivery.smp.conversion.DBResourceToResourceROConverter@6fd121d7, eu.europa.ec.edelivery.smp.conversion.DBReviewDocumentVersionToReviewDocumentVersionROConverter@5f4c2a6, eu.europa.ec.edelivery.smp.conversion.DBSearchReferenceDocumentVersionToSearchReferenceDocumentROConverter@7e106898, eu.europa.ec.edelivery.smp.conversion.DBSubresourceDefToSubresourceDefinitionROConverter@7b524b68, eu.europa.ec.edelivery.smp.conversion.DBSubresourceToSubresourceROConverter@f1447ad, eu.europa.ec.edelivery.smp.conversion.DBUserToSearchUserROConverter@4fd71bcb, eu.europa.ec.edelivery.smp.conversion.DBUserToUserROConverter@2642f9f1, eu.europa.ec.edelivery.smp.conversion.DomainPropEnumToDomainPropROConverter@38e19b13, eu.europa.ec.edelivery.smp.conversion.UserROToDBUserConverter@2548b512, eu.europa.ec.edelivery.smp.conversion.X509CertificateToCertificateROConverter@3503aa6e]
+2026-09-16 08:50:44,202 [] [] [] [main]  INFO e.e.e.e.s.a.c.SMPCasConfigurer:77 - Configured CAS ServiceProperties with callback Url: [http://localhost:8080/smp/ui/public/rest/security/cas]
+2026-09-16 08:50:44,246 [] [] [] [main]  INFO e.e.e.e.s.a.c.SMPCasConfigurer:159 - Created CAS Filter: [CasAuthenticationFilter] with the properties: [ticket]
+2026-09-16 08:50:45,074 [] [] [] [main]  INFO e.e.e.e.s.c.UISecurityConfig:276 - The httpStrictTransportSecurity (HSTS) policy is set to [31536000] for http and https!
+2026-09-16 08:50:45,125 [] [] [] [main]  INFO e.e.e.e.s.c.WSSecurityConfig:232 - The httpStrictTransportSecurity (HSTS) policy is set to [31536000] for http and https!
+2026-09-16 08:50:45,130 [] [] [] [main]  INFO e.e.e.e.s.c.WSSecurityConfig:133 - X509Certificate Authentication is enabled for API access..
+2026-09-16 08:50:45,132 [] [] [] [main]  INFO e.e.e.e.s.c.WSSecurityConfig:138 - X509Certificate Authentication is enabled for API access.
+2026-09-16 08:50:45,142 [] [] [] [main]  INFO e.e.e.e.s.c.WSSecurityConfig:148 - Basic Authentication token is enabled for API access.
+2026-09-16 08:50:45,349 [] [] [] [main]  INFO e.e.e.e.s.c.SMPTaskSchedulerConfig:82 - Configure cron tasks
+2026-09-16 08:50:45,362 [] [] [] [main]  INFO e.e.e.e.s.d.d.ConfigurationDao:276 - Application context is initialized: triggered  refresh  to update all property listeners
+2026-09-16 08:50:45,365 [] [] [] [main]  INFO e.e.e.e.s.c.p.SMPSecurityPropertyUpdateListener:76 - Set Client-Cert headers  enabled: [false].
+2026-09-16 08:50:45,367 [] [] [] [main]  INFO e.e.e.e.s.c.p.SMPSecurityPropertyUpdateListener:88 - Set SSLClientCert headers  enabled: [false].
+2026-09-16 08:50:45,367 [] [] [] [main]  INFO e.e.e.e.s.c.p.SMPSecurityPropertyUpdateListener:101 - Set http forward headers  enabled: [false].
+2026-09-16 08:50:45,367 [] [] [] [main]  INFO e.e.e.e.s.d.d.VaultDao:74 - Vault is disabled, cleaning vault instance
+16-Sep-2026 08:50:45.408 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/opt/domismp/webapps/smp.war] has finished in [21,516] ms
+16-Sep-2026 08:50:45.409 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/domismp/webapps/manager]
+16-Sep-2026 08:50:45.590 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+16-Sep-2026 08:50:45.600 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/domismp/webapps/manager] has finished in [191] ms
+16-Sep-2026 08:50:45.601 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/domismp/webapps/examples]
+16-Sep-2026 08:50:45.927 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+16-Sep-2026 08:50:45.942 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/domismp/webapps/examples] has finished in [341] ms
+16-Sep-2026 08:50:45.942 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/domismp/webapps/docs]
+16-Sep-2026 08:50:46.098 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+16-Sep-2026 08:50:46.099 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/domismp/webapps/docs] has finished in [157] ms
+16-Sep-2026 08:50:46.100 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/domismp/webapps/ROOT]
+16-Sep-2026 08:50:46.233 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+16-Sep-2026 08:50:46.235 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/domismp/webapps/ROOT] has finished in [136] ms
+16-Sep-2026 08:50:46.235 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/domismp/webapps/host-manager]
+16-Sep-2026 08:50:46.385 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+16-Sep-2026 08:50:46.387 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/domismp/webapps/host-manager] has finished in [151] ms
+16-Sep-2026 08:50:46.390 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+16-Sep-2026 08:50:46.417 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [22667] milliseconds
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-09-16 08:51:43,537 [] [] [] [http-nio-8080-exec-1]  INFO e.e.e.e.s.d.d.ConfigurationDao:276 - Application context is initialized: triggered  refresh  to update all property listeners
+2026-09-16 08:51:43,538 [] [] [] [http-nio-8080-exec-1]  INFO e.e.e.e.s.c.p.SMPSecurityPropertyUpdateListener:76 - Set Client-Cert headers  enabled: [false].
+2026-09-16 08:51:43,538 [] [] [] [http-nio-8080-exec-1]  INFO e.e.e.e.s.c.p.SMPSecurityPropertyUpdateListener:88 - Set SSLClientCert headers  enabled: [false].
+2026-09-16 08:51:43,538 [] [] [] [http-nio-8080-exec-1]  INFO e.e.e.e.s.c.p.SMPSecurityPropertyUpdateListener:101 - Set http forward headers  enabled: [false].
+2026-09-16 08:51:43,539 [] [] [] [http-nio-8080-exec-1]  INFO e.e.e.e.s.d.d.VaultDao:74 - Vault is disabled, cleaning vault instance
+2026-09-16 08:51:43,638 [] [900914745C555A5461D31D49B72390C1] [2695c673-6e8e-44c1-818e-0fb368267ed5] [http-nio-8080-exec-1]  INFO e.e.e.e.s.c.RootController:90 - [BUS-007] End Http GET static content from host: 127.0.0.1, Path: /.
+2026-09-16 08:51:43,639 [] [900914745C555A5461D31D49B72390C1] [2695c673-6e8e-44c1-818e-0fb368267ed5] [http-nio-8080-exec-1]  INFO e.e.e.e.s.c.RootController:90 - [BUSINESS - BUS-007] End Http GET static content from host: 127.0.0.1, Path: /.
+xander@sdk-core:~$

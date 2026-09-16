@@ -1,0 +1,61 @@
+site_name: Domibus + Swedish SDK Lab
+site_description: Manual Domibus AS4 and Swedish SDK/DomiSMP laboratory
+repo_name: domibus-sdk-lab
+
+theme:
+  name: material
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Concepts: 01-concepts.md
+  - Architecture: 02-architecture.md
+  - Inventory: 03-inventory.md
+  - VMware & Network: 04-vmware-network.md
+  - Ubuntu & Storage: 05-ubuntu-storage.md
+  - Java & MySQL: 06-java-mysql.md
+  - Domibus Installation: 07-domibus-installation.md
+  - Database: 08-database.md
+  - Crypto & PMode: 09-crypto-and-pmode.md
+  - Blue Gateway: 10-blue-gateway.md
+  - Red Gateway: 11-red-gateway.md
+  - AS4 Validation: 12-as4-validation.md
+  - systemd & Reboot: 13-systemd-and-reboot.md
+  - Failures & Fixes: 14-failures-and-fixes.md
+  - Security: 15-security.md
+  - Operations Runbook: 16-operations-runbook.md
+  - Known-good Evidence: 17-evidence-and-known-good-state.md
+  - Glossary: 18-glossary.md
+  - Next Steps: 19-next-steps.md
+  - Timeline: 20-chronological-timeline.md
+  - Commands: 21-command-reference.md
+  - Raw Observed Values: 22-raw-observed-values.md
+  - SOAP Extraction & Tests: 23-soap-extraction-and-test-commands.md
+  - Screenshot Evidence: 24-screenshot-evidence.md
+  - SDK & DomiSMP Concepts: 25-sdk-and-domismp-concepts.md
+  - sdk-core Inventory: 26-sdk-core-inventory.md
+  - sdk-core Storage: 27-sdk-core-storage.md
+  - DomiSMP Distribution: 28-domismp-distribution-inspection.md
+  - DomiSMP Database: 29-domismp-database.md
+  - DomiSMP Tomcat Runtime: 30-domismp-tomcat-runtime.md
+  - DomiSMP Configuration: 31-domismp-configuration.md
+  - First Start & UI: 32-domismp-first-start-ui.md
+  - DomiSMP systemd & Reboot: 33-domismp-systemd-reboot.md
+  - DomiSMP Failures & Fixes: 34-domismp-failures-and-fixes.md
+  - sdk-core Security: 35-sdk-core-security.md
+  - sdk-core Operations: 36-sdk-core-operations-runbook.md
+  - sdk-core Known-good State: 37-sdk-core-known-good-state.md
+  - sdk-core Commands: 38-sdk-core-command-reference.md
+  - sdk-core Raw Values: 39-sdk-core-raw-observed-values.md
+  - sdk-core Timeline: 40-sdk-core-timeline.md
+  - sdk-core Screenshots: 41-sdk-core-screenshot-evidence.md
+  - sdk-core Snapshot: 42-sdk-core-snapshot-baseline.md
+  - Next SDK Configuration: 43-next-sdk-configuration.md
+  - References: 44-references.md
+

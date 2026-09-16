@@ -1,0 +1,7 @@
+smp.jdbc.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+smp.datasource.jndi=java:comp/env/jdbc/eDeliverySmpDs
+smp.security.folder=/data/domismp/security
+smp.log.folder=/data/domismp/logs
+smp.log.configuration.file=/opt/domismp/lib/smp-logback.xml
+smp.libraries.folder=/data/domismp/ext-lib
+smp.locale.folder=/data/domismp/locales

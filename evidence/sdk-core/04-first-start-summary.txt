@@ -1,0 +1,31 @@
+First successful DomiSMP controlled start
+
+Java:
+  owner: domismp
+  org.apache.catalina.startup.Bootstrap start
+  -Xms1024m -Xmx2048m
+
+Port:
+  *:8080 owned by java
+
+Key DomiSMP log:
+  User datasource with JNDI: [java:comp/env/jdbc/eDeliverySmpDs]
+
+Deployment:
+  Deployment of web application archive [/opt/domismp/webapps/smp.war]
+  has finished in [23,983] ms
+
+Server:
+  Server startup in [25116] milliseconds
+
+HTTP:
+  GET /       -> 200
+  GET /smp/   -> 200
+  HEAD /smp/  -> 401
+
+Early logging error observed before absolute-path fix:
+  Failed to create parent directories for [/home/xander/dl/domismp/logs/edelivery-smp.log]
+  openFile(logs/edelivery-smp.log,true) call failed
+
+Later in same start:
+  /data/domismp/logs/edelivery-smp.log existed and was written.

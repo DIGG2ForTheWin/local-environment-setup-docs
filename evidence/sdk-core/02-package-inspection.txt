@@ -1,0 +1,25 @@
+DomiSMP package inspection summary
+
+Files:
+  smp-5.2.1.3.war
+  smp-5.2.1.3-setup.zip
+
+WAR manifest:
+  Manifest-Version: 1.0
+  Created-By: Maven WAR Plugin 3.5.1
+  Java-Version: 17
+  Build-Jdk-Spec: 21
+  WebLogic-Application-Version: v5.2.1.3
+
+Fresh install DB files identified:
+  database-scripts/mysql.ddl
+  database-scripts/mysql-data.sql
+
+Main configuration files identified:
+  smp.config.properties
+  smp-logback.xml
+
+Sample datasource:
+  java:comp/env/jdbc/eDeliverySmpDs
+
+SoapUI project was present as a sample artifact but SoapUI was not installed for this lab.

@@ -1,0 +1,4 @@
+Snapshot naming convention: numbered short milestone names
+Final DomiSMP baseline snapshot: 02-domismp-installed
+State: powered off for snapshot, then powered on and confirmed working
+Boundary: before Swedish SDK-specific SMP configuration

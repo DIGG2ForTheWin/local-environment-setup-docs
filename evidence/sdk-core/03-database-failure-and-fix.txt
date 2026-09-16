@@ -1,0 +1,36 @@
+First DDL import failure:
+
+ERROR 1071 (42000) at line 699: Specified key was too long; max key length is 3072 bytes
+
+DDL around line 699:
+
+  699 alter table SMP_CERTIFICATE
+  700    add constraint UK3x3rvf6hkim9fg16caurkgg6f unique (CERTIFICATE_ID);
+
+Initial DB charset:
+
+utf8mb4 utf8mb4_unicode_ci
+
+Corrected clean DB charset:
+
+smp utf8mb3 utf8mb3_unicode_ci
+
+Final DDL import: no error
+Final table count: 50
+
+Previously failing index present:
+
+SMP_CERTIFICATE 0 UK3x3rvf6hkim9fg16caurkgg6f 1 CERTIFICATE_ID ... BTREE
+
+Seeded users:
+
+1 system active SYSTEM_ADMIN
+2 user   active USER
+
+Seeded domain:
+
+1 testdomain PUBLIC test-domain DOMI-SMP-001 registered
+
+Application DB login test:
+
+table_count = 50

@@ -1,0 +1,17 @@
+site/
+.venv/
+__pycache__/
+*.pyc
+
+# Never commit secrets
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Local/private material
+secrets/
+private/
+.env
+.env.*

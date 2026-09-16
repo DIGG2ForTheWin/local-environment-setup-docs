@@ -1,0 +1,15 @@
+=== SDK CORE DATA LAYOUT ===
+find: '/data/lost+found': Permission denied
+drwx------ root:root /data/lost+found
+drwxr-xr-x root:root /data
+drwxr-x--- xander:xander /data/baseline
+drwxr-x--- xander:xander /data/domismp
+drwxr-x--- xander:xander /data/domismp/backups
+drwxr-x--- xander:xander /data/domismp/export
+drwxr-x--- xander:xander /data/domismp/import
+drwxr-x--- xander:xander /data/domismp/tmp
+drwxr-x--- xander:xander /data/stage
+
+=== DISK ===
+Filesystem  Size Used Avail Use% Mounted on
+/dev/sdb1   98G  52K  93G   1%  /data
