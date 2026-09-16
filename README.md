@@ -34,6 +34,12 @@ The validated business payload was:
 ```
 
 
+## Start here
+
+New to the lab? Follow **[Build it step by step](docs/00-build-guide.md)**. It walks through the whole build in order, with exact download links, and links into the detailed chapters below.
+
+Published site: <https://digg2forthewin.github.io/local-environment-setup-docs/>
+
 ## SDK-core / DomiSMP extension
 
 The laboratory was extended on 2026-09-16 with a third VM:
@@ -57,6 +63,7 @@ The DomiSMP build is documented in [SDK and DomiSMP concepts](docs/25-sdk-and-do
 
 ## Documentation map
 
+- [Build it step by step](docs/00-build-guide.md)
 - [Concepts](docs/01-concepts.md)
 - [Architecture](docs/02-architecture.md)
 - [Inventory and versions](docs/03-inventory.md)
@@ -130,7 +137,9 @@ No real passwords are intentionally stored here. The repository records credenti
 <KEYSTORE_PASSWORD>
 ```
 
-Temporary or exposed credentials were changed or rotated where appropriate.
+Generated temporary admin passwords were changed immediately after first use.
+
+On 2026-09-16 a review of the published screenshots found two images that still showed sensitive values: the Blue `domibus.properties` datasource password (`20260915-210800.png`) and the Blue admin bcrypt hash (`20260915-214922.png`). Both images were redacted and the Git history was rewritten so the originals are no longer in the repository.
 
 ## Historical-accuracy policy
 
@@ -140,13 +149,13 @@ This repository separates:
 - **exact commands** retained from the setup conversation;
 - **reconstructed procedures** where the final state is known but the literal earliest command transcript was not retained.
 
-The earliest Ubuntu/LVM command transcript is incomplete in the retained project context. Those gaps are explicitly marked rather than silently invented.
+Where an exact command was not retained, the documentation marks the step as reconstructed rather than silently inventing it. The root-LVM expansion commands, once thought lost, were recovered from screenshot `20260915-185903` and are now documented in [Ubuntu and storage](docs/05-ubuntu-storage.md).
 
 ## Visual evidence archive
 
 The documentation now includes a reviewed screenshot archive from the actual build. It begins with VMware VMnet3 creation and VM provisioning, continues through Ubuntu/LVM/storage/network/MySQL/Domibus configuration, and ends with PMode/admin-recovery diagnostics. See the full [Screenshot Evidence Gallery](docs/24-screenshot-evidence.md).
 
-Two raw source screenshots contained generated Domibus administrator passwords and were intentionally excluded from the published assets.
+Two raw source screenshots contained generated Domibus administrator passwords and were intentionally excluded from the published assets. Two further published screenshots were redacted on 2026-09-16 (see *Secret policy*).
 
 ![VMware VMnet3 configuration](docs/assets/screenshots/20260915-175419.png)
 

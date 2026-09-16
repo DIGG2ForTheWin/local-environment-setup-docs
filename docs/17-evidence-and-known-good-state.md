@@ -13,7 +13,7 @@ DB: domibus_schema
 Schema: 5.2.1
 Tables: 119
 PMode ID: 887790301781046774
-Private alias: blue_gw
+Active private alias: blue_gw (sample keystore also holds red_gw)
 Payload: /data/domibus/payloads
 systemd: enabled
 Cold reboot: PASS
@@ -42,7 +42,7 @@ DB: domibus_schema
 Schema: 5.2.1
 Tables: 119
 PMode ID: 887797339501778401
-Private alias: red_gw
+Active private alias: red_gw (sample keystore also holds blue_gw)
 Payload: /data/domibus/payloads
 systemd: enabled
 Cold reboot: PASS

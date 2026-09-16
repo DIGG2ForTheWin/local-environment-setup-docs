@@ -54,6 +54,17 @@ UMask=0027
 WantedBy=multi-user.target
 ```
 
+### Why these settings
+
+- **`Type=forking` + `PIDFile`**: `startup.sh` launches the Tomcat JVM in the background and exits straight away. `forking` tells systemd to expect that. The PID file, written by Tomcat because `CATALINA_PID` is set, tells systemd which process is the real service.
+- **`After=… mysql.service data.mount`, `Requires=mysql.service`, `RequiresMountsFor=/data`**: start only after the database and the payload disk are available.
+- **`WorkingDirectory=/opt/domibus`**: avoids the FreeMarker working-directory problem ([failure 2](14-failures-and-fixes.md#2-blue-first-start-working-directory-freemarker-warning)).
+- **`RuntimeDirectory=domibus`**: systemd creates `/run/domibus` (owned by `domibus`) on every boot, because `/run` is emptied at reboot.
+- **`UMask=0027`**: new files are not world-readable.
+
+!!! note "Logs"
+    Because Tomcat forks, Domibus deployment messages go to `/opt/domibus/logs/catalina.out`, not to `journalctl -u domibus`. Check both when diagnosing a start.
+
 ## Verify and enable
 
 ```bash

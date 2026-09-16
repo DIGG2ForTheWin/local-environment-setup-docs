@@ -1,6 +1,8 @@
 site_name: Domibus + Swedish SDK Lab
 site_description: Manual Domibus AS4 and Swedish SDK/DomiSMP laboratory
-repo_name: domibus-sdk-lab
+site_url: https://digg2forthewin.github.io/local-environment-setup-docs/
+repo_name: DIGG2ForTheWin/local-environment-setup-docs
+repo_url: https://github.com/DIGG2ForTheWin/local-environment-setup-docs
 
 theme:
   name: material
@@ -19,6 +21,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Build it step by step: 00-build-guide.md
   - Concepts: 01-concepts.md
   - Architecture: 02-architecture.md
   - Inventory: 03-inventory.md

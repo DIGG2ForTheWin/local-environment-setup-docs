@@ -10,7 +10,7 @@ Observed initial inventory:
 hostname: sdk-core
 Ubuntu: 24.04.5 LTS (Noble)
 ens33 NAT: 192.168.140.131/24
-en34 host-only: 192.168.50.30/24
+ens34 host-only: 192.168.50.30/24
 default route: 192.168.140.2 via ens33
 SSH: listening on IPv4 and IPv6 port 22
 ```

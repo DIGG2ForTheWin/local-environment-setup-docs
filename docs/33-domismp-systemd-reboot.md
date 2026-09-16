@@ -41,6 +41,8 @@ WantedBy=multi-user.target
 
 `systemd-analyze verify` returned cleanly.
 
+`Type=forking` with `PIDFile` is used because Tomcat's `startup.sh` starts the JVM in the background and exits; the PID file, written because `CATALINA_PID` is set in `setenv.sh`, tells systemd which process is the service. `shutdown.sh 30 -force` waits 30 seconds for a clean stop and then kills the JVM ([failure 8](34-domismp-failures-and-fixes.md#8-tomcat-shutdown-timed-out-while-jvm-remained)).
+
 ## Warm service check
 
 After enabling/starting the unit:

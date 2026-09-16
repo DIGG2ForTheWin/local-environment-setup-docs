@@ -1,21 +1,24 @@
 # Chronological build timeline
 
-This timeline consolidates the retained milestones in order.
+This timeline consolidates the retained milestones in order. For a hands-on walkthrough of the same order with download links, see [Build it step by step](00-build-guide.md).
+
+!!! info "Clocks"
+    Times in brackets such as *(17:54 local)* come from screenshot filenames, in Windows local time (CEST, UTC+2). Times from logs or the database are UTC. See [Raw observed values](22-raw-observed-values.md#important-timestamps).
 
 ## Infrastructure phase
 
-1. Create Ubuntu Server 24.04.5 VMs in VMware Workstation.
-2. Give Blue/Red approximately 8 GB RAM, 4 processors, 60 GB OS disk and 200 GB data disk.
-3. Create VMware host-only VMnet3 `192.168.50.0/24` with DHCP disabled.
-4. Configure Windows VMnet3 adapter as `192.168.50.1/24`.
-5. Configure Blue `ens34` as `192.168.50.10/24`.
-6. Configure Red `ens34` as `192.168.50.20/24`.
-7. Keep `ens33` on NAT.
-8. Install/enable SSH.
-9. Extend Ubuntu root LVM to approximately 57 GB.
-10. Partition `/dev/sdb` as GPT `/dev/sdb1`, ext4, label `domibus-data`.
-11. Mount at `/data` persistently by UUID.
-12. Create Domibus payload/temp and staging directories.
+1. Create VMware host-only VMnet3 `192.168.50.0/24` with DHCP disabled *(17:54 local)*.
+2. Create the **Blue** VM: approximately 8 GB RAM, 4 processors, 60 GB LSI Logic SCSI OS disk *(18:25 local)*.
+3. Install Ubuntu Server 24.04.5 with SSH; disconnect the installation ISO after the `/cdrom` unmount message *(18:50–18:52 local)*.
+4. Extend Blue's root LVM to approximately 57 GB with `lvextend -l +100%FREE -r` *(18:59 local)*.
+5. Update packages; verify SSH, open-vm-tools and Python *(19:04–19:14 local)*.
+6. **Clone Blue to create Red**; regenerate Red's machine identity and SSH host keys; Windows OpenSSH reports the changed host key *(19:29–19:31 local)*.
+7. Configure Red `ens34` as `192.168.50.20/24` with netplan *(19:34 local)*.
+8. Configure the Windows VMnet3 adapter as `192.168.50.1/24`; it had shown an APIPA `169.254.x` address before *(19:37 local)*.
+9. Configure Blue `ens34` as `192.168.50.10/24`; keep `ens33` on NAT on both VMs.
+10. Add a 200 GB data disk to Blue: GPT `/dev/sdb1`, ext4, label `domibus-data`, mounted at `/data` by UUID *(20:06–20:10 local)*.
+11. Repeat the data disk on Red *(20:12–20:17 local)*.
+12. Create Domibus payload/temp and staging directories on both.
 
 ## Runtime phase
 
@@ -149,8 +152,6 @@ cold-reboot proven
 ## Screenshot timeline
 
 A complete chronological screenshot index is available in [Screenshot evidence](24-screenshot-evidence.md). The archive materially improves the timeline by supplying visual checkpoints from VMware network creation at 17:54 through Domibus/admin diagnostics at 21:51.
-
-Key milestones visible in the images include: VMnet3 creation, 60 GB SCSI OS disk provisioning, Ubuntu installation, `/cdrom` installation-medium issue, LVM expansion, base-service audit, guest identity regeneration, static networking, 200 GB data-disk setup, MySQL local binding, SQL import and `ERROR 1419`, successful 119-table schema state, Domibus distribution/sample inspection, Connector/J manifest verification, properties customization, first browser access, certificate inspection, PMode editing and admin DB recovery.
 
 ![Beginning of visual timeline: VMnet3](assets/screenshots/20260915-175419.png)
 

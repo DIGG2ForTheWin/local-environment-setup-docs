@@ -178,38 +178,15 @@ The reverse message showed the mirror mapping.
 
 The AS4 `MessageId` is the primary trace value for a message across both gateways.
 
-Proven messages:
-
-```text
-Blue -> Red:
-331c0511-b145-11f1-98c5-000c29b65d5b@domibus.eu
-
-Red -> Blue:
-f0209410-b146-11f1-a7a7-000c298c283d@domibus.eu
-```
+Both proven messages and their IDs are listed in [Raw observed values](22-raw-observed-values.md#blue-red-message).
 
 ## MessageEntityID
 
-Domibus also assigns an internal entity ID. It is different from the AS4 `MessageId`.
-
-Examples:
-
-```text
-Blue sender entity: 887799183390676475
-Red receiver entity: 887799205223657931
-```
+Domibus also assigns an internal database entity ID to each message on each gateway. It is different from the AS4 `MessageId`, and the same message has a different entity ID on the sender and on the receiver.
 
 ## ConversationId
 
-Observed conversation IDs:
-
-```text
-Blue -> Red:
-332db852-b145-11f1-98c5-000c29b65d5b@domibus.eu
-
-Red -> Blue:
-f021f3a1-b146-11f1-a7a7-000c298c283d@domibus.eu
-```
+Groups related messages into one business conversation. In this lab each test message started its own conversation.
 
 ## Payload
 

@@ -51,6 +51,8 @@ ISO:
 ubuntu-24.04.5-live-server-amd64.iso
 ```
 
+Download: <https://releases.ubuntu.com/24.04/ubuntu-24.04.5-live-server-amd64.iso> (checksums: <https://releases.ubuntu.com/24.04/SHA256SUMS>)
+
 ## Base tools
 
 Observed:
@@ -68,6 +70,8 @@ Eclipse Temurin JDK 21
 JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
 ```
 
+Installed from the Adoptium apt repository (package `temurin-21-jdk`): <https://adoptium.net/installation/linux/>
+
 Observed runtime:
 
 ```text
@@ -82,6 +86,8 @@ Temurin
 MySQL 8.0.46 Ubuntu
 ```
 
+Installed from the Ubuntu archive: `sudo apt install mysql-server`.
+
 ## Domibus
 
 ```text
@@ -93,6 +99,10 @@ Distribution:
 ```text
 domibus-msh-distribution-5.2.1.3-JEE10-tomcat-full.zip
 ```
+
+Download: <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/domibus/domibus-msh-distribution/5.2.1.3-JEE10/domibus-msh-distribution-5.2.1.3-JEE10-tomcat-full.zip>
+
+Release page: <https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/467110244/Domibus>
 
 Approximate archive size:
 
@@ -108,6 +118,8 @@ An older 5.2.1.2 archive existed during preparation, but the final environment u
 domibus-msh-distribution-5.2.1.3-JEE10-sample-configuration-and-testing.zip
 ```
 
+Download: <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/domibus/domibus-msh-distribution/5.2.1.3-JEE10/domibus-msh-distribution-5.2.1.3-JEE10-sample-configuration-and-testing.zip>
+
 Approximate size:
 
 ```text
@@ -119,6 +131,8 @@ Approximate size:
 ```text
 domibus-msh-sql-distribution-1.21.zip
 ```
+
+Download: <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/domibus/domibus-msh-sql-distribution/1.21/domibus-msh-sql-distribution-1.21.zip>
 
 Approximate size:
 
@@ -160,6 +174,8 @@ File:
 ```text
 mysql-connector-j-8.4.0.jar
 ```
+
+Download (Maven Central): <https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar>
 
 Installed:
 

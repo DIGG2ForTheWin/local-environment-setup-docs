@@ -100,11 +100,14 @@ sudo grep '^domibus\.datasource\.url=' \
 
 ## Current-boot failure check
 
+Tomcat deployment messages are written to `catalina.out`, not the systemd journal. See [Operations runbook §14](16-operations-runbook.md#14-current-boot-deploymentdb-failure-check).
+
 ```bash
-sudo journalctl -b --no-pager | \
-grep -E 'Public Key Retrieval|Context \[/domibus\] startup failed' \
-|| echo '[PASS] No Domibus database/deployment failure this boot'
+sudo grep -E 'Public Key Retrieval|Context \[/domibus\] startup failed|Server startup in' \
+  /opt/domibus/logs/catalina.out | tail -20
 ```
+
+Healthy: the last line is `Server startup in [...] milliseconds`.
 
 ## Blue -> Red submit
 
@@ -143,8 +146,6 @@ sudo sh -c "tr '\0' '\n' < /proc/$PID/environ"
 ```
 
 ## Screenshot-backed command reference
-
-Many commands in this chapter are now backed by screenshots of their actual use. Especially well-evidenced command families are: `ip`, `ip route`, `lsblk`, `df`, LVM resizing, `parted`, `mkfs.ext4`, `blkid`, `findmnt`, `systemctl`, `ss`, MySQL CLI queries, ZIP inspection, `keytool`, `grep`-based PMode checks and Java/Tomcat process inspection.
 
 ![Storage commands in use](assets/screenshots/20260915-200824.png)
 

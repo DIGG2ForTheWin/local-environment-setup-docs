@@ -71,6 +71,8 @@ XA_RECOVER_ADMIN ON *.*
 
 Real DB passwords are excluded. A previously exposed Blue password was rotated. Red's password was entered privately.
 
+On 2026-09-16 the screenshot `20260915-210800.png`, which showed the Blue `domibus.datasource.password` line in `nano`, was found in the published assets. It was redacted and removed from the Git history.
+
 ## Authentication plugin
 
 Both machines were checked and use:
@@ -144,6 +146,10 @@ The final fix was:
 ```text
 allowPublicKeyRetrieval=true
 ```
+
+**What this means in plain words.** MySQL 8 accounts use `caching_sha2_password`. To send the password safely, the client needs either an encrypted (TLS) connection or the server's RSA public key. With `useSSL=false` there is no TLS, and Connector/J refuses by default to *fetch* that public key from the server. A fetched key could be spoofed by a machine in the middle. `allowPublicKeyRetrieval=true` permits the fetch. The connection is to `localhost` inside an isolated lab VM, so that risk is acceptable here.
+
+It worked before the reboot because MySQL caches a successful login in memory: after one authentication, reconnects don't need the RSA key. A reboot clears that cache, so the first connection after boot needed the full exchange, and it failed.
 
 The same change was applied to Red before its cold reboot.
 

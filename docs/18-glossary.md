@@ -46,8 +46,6 @@
 
 ## Visual examples
 
-The screenshot set provides concrete examples of several glossary terms: the Administration Console is the operator-facing Domibus web UI; the PMode screenshots show Party/Service/Action configuration in XML; and the keystore/truststore screenshot shows the Java certificate stores used for gateway identity/trust.
-
 ![Domibus Administration Console](assets/screenshots/20260915-211602.png)
 
 ![PMode XML](assets/screenshots/20260915-213325.png)

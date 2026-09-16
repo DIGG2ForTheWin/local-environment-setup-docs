@@ -8,6 +8,8 @@ VMnet3: 192.168.50.20/24
 Role: second Domibus Access Point
 ```
 
+Red was created by **cloning the Blue VM** after Blue's Ubuntu base setup (about 19:29 CEST). It was then made a distinct machine: new hostname, machine-id and SSH host keys, its own static `ens34` address and its own data disk. Windows OpenSSH therefore warned that the host key had changed.
+
 Observed NAT address:
 
 ```text
@@ -133,7 +135,7 @@ Private key alias:
 red_gw
 ```
 
-JKS format retained.
+JKS format retained. The keystore file is the same vendor sample as on Blue and also contains `blue_gw`; Red's identity is selected by the alias setting. See [Cryptography and PMode](09-crypto-and-pmode.md#private-aliases).
 
 ## First manual start
 
@@ -179,141 +181,23 @@ Upload timestamp:
 
 Created/modified by `admin`.
 
-## Blue -> Red proven receive
+## Messaging results (summary)
 
-Message:
+| Test | Red's role | Result |
+|---|---|---|
+| Blue -> Red | receiver | `RECEIVED`; receipt generated with non-repudiation; WS Plugin notified |
+| Backend on Red | `listPendingMessages` + `retrieveMessage` | original `<hello>world</hello>` payload recovered |
+| Red -> Blue | sender | `ACKNOWLEDGED`; encrypted for `blue_gw`, signed with `red_gw` |
 
-```text
-331c0511-b145-11f1-98c5-000c29b65d5b@domibus.eu
-```
+Message IDs, entity IDs and full log evidence: [AS4 validation](12-as4-validation.md) and [Raw observed values](22-raw-observed-values.md#red-blue-message).
 
-Red entity:
+## systemd and reboot (summary)
 
-```text
-887799205223657931
-```
+1. First systemd start: healthy (Main PID 4736, root HTTP 302).
+2. **Preventive JDBC fix:** Blue's reboot failure showed a shared weakness, so before rebooting Red the account was confirmed as `caching_sha2_password` and `allowPublicKeyRetrieval=true` was added. A targeted edit matched only the active `domibus.datasource.url` line (count 1).
+3. Warm restart and cold reboot passed; Red also reached Blue's MSH with HTTP 200 after reboot.
 
-Status:
-
-```text
-RECEIVED
-```
-
-Red logs proved:
-
-```text
-rsa incoming security profile
-blue_gw/red_gw certificates located
-PMode exchange matched
-receipt generated SUCCESS
-nonRepudiation=true
-PUSH processing
-payload/profile validation
-filesystem persistence
-59-byte payload received
-MESSAGE_RECEIVED
-WS Plugin notified
-message persisted in DB
-message received SUCCESS PUSH
-MESSAGE_RESPONSE_SENT
-```
-
-## Backend retrieval
-
-Red listed the message as pending and retrieved the original `<hello>world</hello>` payload successfully.
-
-## Red -> Blue proven send
-
-Message:
-
-```text
-f0209410-b146-11f1-a7a7-000c298c283d@domibus.eu
-```
-
-Red entity:
-
-```text
-887802313651713634
-```
-
-Final status:
-
-```text
-ACKNOWLEDGED
-```
-
-Logs proved:
-
-```text
-red_gw sender matched
-blue_gw receiver matched
-service/action/leg matched
-payload validated
-SEND_ENQUEUED
-blue_gw used for encryption
-red_gw used for signing
-certificates valid
-reliability check successful
-SEND_ENQUEUED -> ACKNOWLEDGED
-MESSAGE_SEND_SUCCESS
-receipt SUCCESS
-message sent SUCCESS PUSH
-```
-
-## systemd first start
-
-```text
-Main PID 4736
-owner domibus:domibus
-8080 owned by Java PID 4736
-Root 302
-```
-
-## JDBC preventative fix
-
-Blue's reboot failure revealed a shared configuration weakness. Before rebooting Red, the DB user was confirmed as `caching_sha2_password` and the active datasource URL was updated to include `allowPublicKeyRetrieval=true`.
-
-The targeted Red edit matched only the active `domibus.datasource.url` line. Active-setting count was 1.
-
-## Warm restart
-
-```text
-systemd active
-Java PID 6941
-Root 302
-MSH 200
-WS Plugin 200
-```
-
-Deployment:
-
-```text
-48,581 ms
-```
-
-## Final cold reboot
-
-```text
-systemd enabled
-systemd active
-Java PID 1361
-owner domibus:domibus
-MySQL active
-/data mounted
-8080 listening
-Root 302
-MSH 200
-WS Plugin 200
-Blue MSH 200
-```
-
-Deployment:
-
-```text
-71,512 ms
-```
-
-No current-boot DB/deployment failure was found.
+Full sequence, PIDs and deployment timings: [systemd and reboot validation](13-systemd-and-reboot.md#red-proactive-jdbc-fix).
 
 ## Screenshot evidence from the Red preparation
 

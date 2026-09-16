@@ -177,11 +177,17 @@ sudo grep -RFn "$MID" /opt/domibus/logs 2>/dev/null | tail -100
 
 ## 14. Current-boot deployment/DB failure check
 
+Domibus is started by `startup.sh`, which forks Tomcat, so its deployment messages go to `catalina.out`, **not** to the systemd journal. Grepping `journalctl` alone would print `[PASS]` even when `/domibus` failed to deploy. Search the log lines written since the service last started:
+
 ```bash
-sudo journalctl -b --no-pager | \
-grep -E 'Public Key Retrieval|Context \[/domibus\] startup failed' \
-|| echo '[PASS] No Domibus database/deployment failure this boot'
+SINCE=$(systemctl show domibus -p ActiveEnterTimestamp --value)
+echo "Service started: $SINCE"
+
+sudo grep -E 'Public Key Retrieval|Context \[/domibus\] startup failed|Server startup in' \
+  /opt/domibus/logs/catalina.out | tail -20
 ```
+
+Healthy: the **last** matching line is `Server startup in [...] milliseconds`, with no `Public Key Retrieval` or `startup failed` line after it.
 
 ## 15. Check JDBC URL
 
@@ -247,8 +253,6 @@ no current-boot DB/deployment failure
 ```
 
 ## Visual reference for runbook checks
-
-The evidence archive shows the same classes of checks used by this runbook: `hostname`, `ip -br addr`, `lsblk`, `df`, service status, `ss -ltnp`, Java/Tomcat process inspection, MySQL listener verification, filesystem mount validation and application-log inspection.
 
 ![Base host/network/service audit](assets/screenshots/20260915-191406.png)
 

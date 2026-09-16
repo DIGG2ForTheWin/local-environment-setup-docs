@@ -11,6 +11,11 @@ smp-5.2.1.3.war
 smp-5.2.1.3-setup.zip
 ```
 
+Downloads:
+
+- <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/edelivery/smp/5.2.1.3/smp-5.2.1.3.war>
+- <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/edelivery/smp/5.2.1.3/smp-5.2.1.3-setup.zip>
+
 They were copied to:
 
 ```text

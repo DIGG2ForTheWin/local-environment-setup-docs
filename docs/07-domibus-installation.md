@@ -33,6 +33,8 @@ Numeric IDs are not intended as portable requirements.
 domibus-msh-distribution-5.2.1.3-JEE10-tomcat-full.zip
 ```
 
+Download: <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/domibus/domibus-msh-distribution/5.2.1.3-JEE10/domibus-msh-distribution-5.2.1.3-JEE10-tomcat-full.zip>
+
 Extracted under:
 
 ```text
@@ -41,9 +43,13 @@ Extracted under:
 
 ## Sample distribution
 
-The sample/testing archive was extracted separately rather than over `/opt/domibus`, avoiding accidental overwrite of the live installation.
+Download: <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/domibus/domibus-msh-distribution/5.2.1.3-JEE10/domibus-msh-distribution-5.2.1.3-JEE10-sample-configuration-and-testing.zip>
+
+The sample/testing archive was extracted separately (`unzip -q … -d ~/dl/sample-config`) rather than over `/opt/domibus`, avoiding accidental overwrite of the live installation.
 
 ## JDBC driver
+
+Domibus does not ship the MySQL driver. Download Connector/J 8.4.0 from Maven Central: <https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar>
 
 Connector/J was installed at:
 

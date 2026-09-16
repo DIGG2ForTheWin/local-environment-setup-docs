@@ -236,7 +236,7 @@ Public Key Retrieval is not allowed
 Context [/domibus] startup failed due to previous errors
 ```
 
-**Cause:** MySQL user used `caching_sha2_password`; JDBC used `useSSL=false` and did not allow Connector/J to retrieve the server RSA public key.
+**Cause:** MySQL user used `caching_sha2_password`; JDBC used `useSSL=false` and did not allow Connector/J to retrieve the server RSA public key. It had worked before the reboot only because MySQL caches successful logins in memory; the reboot cleared that cache. Plain-language explanation: [Java and MySQL](06-java-mysql.md#reboot-authentication-failure).
 
 **Fix:** add:
 

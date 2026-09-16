@@ -1,5 +1,13 @@
 # End-to-end AS4 validation
 
+## Who plays which role
+
+There is no separate backend application in this lab. **The `curl` commands on each VM *are* the backend.** They call the local Domibus WS Plugin (`http://127.0.0.1:8080/domibus/services/wsplugin`) exactly as a real business application would, to submit, list and download messages. Domibus-to-Domibus traffic (the AS4 part) goes between the two MSH URLs on the VMnet3 network.
+
+```text
+curl on Blue --(WS Plugin SOAP)--> Blue Domibus ==(AS4 over 192.168.50.x)==> Red Domibus <--(WS Plugin SOAP)-- curl on Red
+```
+
 ## Validation standard
 
 The baseline required proof of backend submission, PMode matching, payload persistence, certificate selection, signing, encryption, remote delivery, receipt generation, sender reliability validation, sender/receiver state, pending-message listing and backend payload retrieval in both directions.

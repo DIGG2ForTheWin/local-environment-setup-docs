@@ -34,4 +34,6 @@ Shows the DomiSMP UI after bootstrap/admin work in the same session. The private
 
 ## Evidence limitations
 
-The screenshots do not cover every terminal command. Exact outputs for the cold reboot and major troubleshooting incidents are preserved under `evidence/sdk-core/` and in the corresponding Markdown chapters.
+The screenshots do not cover every terminal command. Exact outputs for the cold reboot and major troubleshooting incidents are preserved in the repository folder [`evidence/sdk-core/`](https://github.com/DIGG2ForTheWin/local-environment-setup-docs/tree/main/evidence/sdk-core) (on GitHub, not part of this website) and in the corresponding Markdown chapters.
+
+The Blue/Red screenshots are on [Screenshot evidence](24-screenshot-evidence.md).

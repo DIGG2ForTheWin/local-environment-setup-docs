@@ -13,18 +13,36 @@ Domibus uses:
 
 The stores are JKS. Java warns that JKS is proprietary and suggests PKCS12. For the baseline they were deliberately not converted because the vendor sample already worked with JKS and changing store format during initial bring-up would introduce another variable.
 
+## What the two stores do
+
+| Store | Holds | Used to |
+|---|---|---|
+| **Keystore** `gateway_keystore.jks` | Private keys and their certificates | **sign** outgoing messages and **decrypt** incoming ones |
+| **Truststore** `gateway_truststore.jks` | Partner certificates (public) | **encrypt** to a partner and **verify** a partner's signature |
+
 ## Private aliases
 
-Blue:
+Blue uses:
 
 ```text
 blue_gw
 ```
 
-Red:
+Red uses:
 
 ```text
 red_gw
+```
+
+!!! note "Both private keys are in the same sample keystore"
+    `keytool -list` (screenshot `20260915-213142`) shows that the vendor sample `gateway_keystore.jks` contains **two** `PrivateKeyEntry` items, `blue_gw` and `red_gw`, and both VMs use this same file. The *active* identity comes from `domibus.security.key.private.alias` in `domibus.properties`. This is a lab convenience with public sample certificates (store password `test123`, a public vendor default). In production each Access Point holds only its own private key. See [Security](15-security.md#shared-sample-keystore-lab-only).
+
+How the stores were checked (observed):
+
+```bash
+sudo -u domibus keytool -list -v \
+  -keystore /opt/domibus/conf/domibus/keystores/gateway_keystore.jks \
+  -storepass test123 | grep -E 'Alias name:|Entry type:|Owner:|Issuer:'
 ```
 
 ## Trusted certificates

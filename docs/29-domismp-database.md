@@ -15,6 +15,8 @@ Auth:     caching_sha2_password
 
 MySQL remained bound to localhost.
 
+The JNDI URL later includes `allowPublicKeyRetrieval=true` from the start, to avoid the reboot-time login failure seen on the Domibus gateways ([why](06-java-mysql.md#reboot-authentication-failure)).
+
 ## Credential-handling mistake and immediate correction
 
 During initial account creation, the literal placeholder text from the instruction was accidentally used as the DB password. Because that value appeared in the transcript, it was immediately replaced with a new private password before continuing.

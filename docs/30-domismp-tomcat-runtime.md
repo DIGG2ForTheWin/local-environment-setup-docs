@@ -31,7 +31,8 @@ Persistent application state stayed under `/data/domismp`.
 
 ## Tomcat version
 
-Apache Tomcat **10.1.59** was installed and verified:
+Apache Tomcat **10.1.59** was installed and verified. DomiSMP is not bundled with Tomcat, so Tomcat is downloaded separately: <https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.59/bin/apache-tomcat-10.1.59.tar.gz>
+
 
 ```text
 Server version: Apache Tomcat/10.1.59
@@ -44,6 +45,8 @@ JVM Vendor:     Eclipse Adoptium
 DomiSMP 5.2.1.x is the modern Tomcat 10.1/Java 21 line.
 
 ## WAR deployment name
+
+WAR download: <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/edelivery/smp/5.2.1.3/smp-5.2.1.3.war>
 
 The downloaded WAR was copied as:
 
@@ -65,7 +68,7 @@ Observed WAR size:
 
 ## Connector/J
 
-The VM did not initially contain Connector/J 8.4.0. A previously verified copy was transferred from Blue:
+The VM did not initially contain Connector/J 8.4.0 (Maven Central: <https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar>). A previously verified copy was transferred from Blue:
 
 ```text
 /home/xander/dl/domismp/mysql-connector-j-8.4.0.jar

@@ -176,170 +176,24 @@ PMode retained
 
 No meaningful damage was found.
 
-## Blue -> Red proven send
+## Messaging results (summary)
 
-Message ID:
+| Test | Blue's role | Result |
+|---|---|---|
+| Blue -> Red | sender | `ACKNOWLEDGED`; encrypted for `red_gw`, signed with `blue_gw` |
+| Red -> Blue | receiver | `RECEIVED`; receipt generated; WS Plugin notified |
+| Backend on Blue | `listPendingMessages` + `retrieveMessage` | original `<hello>world</hello>` payload recovered |
 
-```text
-331c0511-b145-11f1-98c5-000c29b65d5b@domibus.eu
-```
+Message IDs, entity IDs and full log evidence: [AS4 validation](12-as4-validation.md) and [Raw observed values](22-raw-observed-values.md#blue-red-message).
 
-Blue entity:
+## systemd and reboot (summary)
 
-```text
-887799183390676475
-```
+1. First systemd start: healthy (Main PID 4158, root HTTP 302).
+2. **First cold reboot failed:** systemd, Java, MySQL, `/data` and port 8080 all looked healthy, but `/domibus`, MSH and WS Plugin returned **404**. The log showed `Public Key Retrieval is not allowed`.
+3. Fix: `allowPublicKeyRetrieval=true` added to the active JDBC URL. The first broad `sed` also touched a commented replica line, which was cleaned up so the active count was exactly 1.
+4. Warm restart and a second cold reboot then passed (root 302, MSH 200, WS Plugin 200).
 
-Final status:
-
-```text
-ACKNOWLEDGED
-```
-
-Blue logs proved:
-
-```text
-PMode match
-payload profile valid
-property profile valid
-PAYLOAD_SUBMITTED
-PAYLOAD_PROCESSED
-59-byte payload saved
-payload compressed
-SEND_ENQUEUED
-red_gw used for encryption
-blue_gw used for signing
-receiver certificate valid
-sender certificate valid
-reliability check successful
-SEND_ENQUEUED -> ACKNOWLEDGED
-MESSAGE_SEND_SUCCESS
-receipt received SUCCESS
-message sent SUCCESS PUSH
-```
-
-## Red -> Blue proven receive
-
-Message ID:
-
-```text
-f0209410-b146-11f1-a7a7-000c298c283d@domibus.eu
-```
-
-Blue receiver entity:
-
-```text
-887802330217584117
-```
-
-Status:
-
-```text
-RECEIVED
-```
-
-Blue generated a successful receipt, persisted the payload, notified the WS Plugin, and logged `Message received [SUCCESS] [PUSH] from [domibus-red] to [domibus-blue]`.
-
-## Blue backend retrieval
-
-Blue listed the reverse message through `listPendingMessages`, then retrieved it through `retrieveMessage`.
-
-Decoded payload:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<hello>world</hello>
-```
-
-## First systemd start
-
-Observed:
-
-```text
-Main PID 4158
-process java
-owner domibus:domibus
-port 8080 owned by PID 4158
-Root HTTP 302
-```
-
-## First cold reboot failure
-
-After reboot:
-
-```text
-systemd active
-Java PID 1179 alive
-MySQL active
-/data mounted
-ens34 192.168.50.10/24
-8080 listening
-Red MSH reachable with 200
-```
-
-but:
-
-```text
-Root 404
-MSH 404
-WS Plugin 404
-```
-
-Logs showed:
-
-```text
-Public Key Retrieval is not allowed
-Context [/domibus] startup failed due to previous errors
-```
-
-## JDBC correction
-
-Added:
-
-```text
-allowPublicKeyRetrieval=true
-```
-
-The first broad `sed` also changed a commented replica example. That was cleaned up so the active setting count was exactly 1.
-
-## Warm restart after fix
-
-```text
-systemd active
-Java PID 1868 alive
-Root 302
-MSH 200
-WS Plugin 200
-```
-
-Fresh deployment:
-
-```text
-55,882 ms
-```
-
-## Final cold reboot
-
-```text
-systemd enabled
-systemd active
-Java PID 1215
-owner domibus:domibus
-MySQL active
-/data mounted
-8080 listening
-Root 302
-MSH 200
-WS Plugin 200
-```
-
-Fresh deployment:
-
-```text
-70,531 ms
-```
-
-Current boot check found no Domibus DB/deployment failure.
+Full sequence, PIDs and deployment timings: [systemd and reboot validation](13-systemd-and-reboot.md#blue-first-reboot).
 
 ## Screenshot evidence from the Blue build
 

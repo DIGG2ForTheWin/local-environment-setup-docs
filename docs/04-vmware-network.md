@@ -23,6 +23,49 @@ Windows host adapter:
 192.168.50.1/24
 ```
 
+### How to create VMnet3
+
+VMware Workstation → **Edit → Virtual Network Editor → Change Settings → Add Network…** → choose **VMnet3**, then:
+
+- select **Host-only**;
+- set Subnet IP `192.168.50.0` and mask `255.255.255.0`;
+- **untick** *Use local DHCP service to distribute IP addresses to VMs*.
+
+### How to give Windows its static VMnet3 address
+
+With DHCP off, Windows gets no address on VMnet3 and falls back to an APIPA `169.254.x.x` address (this happened, see below). Set it manually in an **elevated** PowerShell (reference command):
+
+```powershell
+New-NetIPAddress -InterfaceAlias 'VMware Network Adapter VMnet3' `
+  -IPAddress 192.168.50.1 -PrefixLength 24
+```
+
+Or use the GUI: Control Panel → Network and Sharing Center → Change adapter settings → *VMware Network Adapter VMnet3* → Properties → IPv4 → address `192.168.50.1`, mask `255.255.255.0`, no gateway.
+
+Verify (observed):
+
+```powershell
+Get-NetIPAddress -AddressFamily IPv4 |
+  Where-Object InterfaceAlias -Like "*VMnet3*" |
+  Format-Table InterfaceAlias,IPAddress,PrefixLength
+```
+
+### Guest side (netplan)
+
+Each VM's host-only adapter is configured in `/etc/netplan/60-vmnet3.yaml` (mode 600, then `sudo netplan generate && sudo netplan apply`). Red's commands are visible in screenshot `20260915-193448`. Reference file body:
+
+```yaml
+network:
+  version: 2
+  ethernets:
+    ens34:
+      dhcp4: false
+      addresses:
+        - 192.168.50.20/24      # Blue .10, sdk-core .30
+```
+
+No gateway is set on `ens34`, so Internet traffic continues through NAT on `ens33`.
+
 ## VM interfaces
 
 ```text

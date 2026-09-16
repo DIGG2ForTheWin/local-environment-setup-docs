@@ -248,19 +248,27 @@ Red final cold-boot PID: 1361
 
 ## Important timestamps
 
+Three clocks appear in this project:
+
+- **UTC**: Domibus/Tomcat log lines and MySQL `CREATION_TIME` columns. For example, the Blue admin row created at `19:46:36` in the DB matches the screenshot taken at `21:47` local.
+- **Windows local time (CEST, UTC+2)**: screenshot filenames.
+- **Not recorded**: some transcript values whose source clock was not captured.
+
 ```text
-Blue PMode upload: 2026-09-15 20:01:42
-Red PMode upload: 2026-09-15 20:29:40
-Blue -> Red submit: 2026-09-15 around 20:36:59-20:37:05 UTC
-Red -> Blue submit: 2026-09-15 around 20:49:26-20:49:30 UTC
-Blue first systemd start: 2026-09-15 20:56:40 UTC
-Red first systemd start: 2026-09-15 21:00:21 UTC
-Blue failed reboot Domibus deploy: 2026-09-15 around 21:05 UTC
-Blue successful warm deployment after fix: 2026-09-15 23:23:49
-Blue final successful reboot deployment: 2026-09-15 23:27:50
-Red successful warm deployment after fix: 2026-09-15 23:32:48
-Red final successful reboot deployment: 2026-09-15 23:36:57
+Blue PMode upload:                          2026-09-15 20:01:42 UTC (DB timestamp)
+Red PMode upload:                           2026-09-15 20:29:40 UTC (DB timestamp)
+Blue -> Red submit:                         2026-09-15 ~20:36:59-20:37:05 UTC
+Red -> Blue submit:                         2026-09-15 ~20:49:26-20:49:30 UTC
+Blue first systemd start:                   2026-09-15 20:56:40 UTC
+Red first systemd start:                    2026-09-15 21:00:21 UTC
+Blue failed reboot Domibus deploy:          2026-09-15 ~21:05 UTC
+Blue successful warm deployment after fix:  2026-09-15 23:23:49 (clock not recorded)
+Blue final successful reboot deployment:    2026-09-15 23:27:50 (clock not recorded)
+Red successful warm deployment after fix:   2026-09-15 23:32:48 (clock not recorded)
+Red final successful reboot deployment:     2026-09-15 23:36:57 (clock not recorded)
 ```
+
+The last screenshot of the Blue/Red phase was taken at 21:51 CEST (19:51 UTC). Everything above from the PMode upload onwards happened after the screenshot archive ended.
 
 ## Snapshot names proposed
 

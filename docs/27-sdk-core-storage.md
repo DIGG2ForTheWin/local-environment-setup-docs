@@ -4,6 +4,8 @@
 
 The `sdk-core` VM received a separate 100 GB SCSI disk so application state, logs, security material, imports/exports and backups are not mixed into the root filesystem. This mirrors the operational separation already used on Blue and Red.
 
+For the terms GPT, ext4, label, UUID and `nofail`, see [Ubuntu and storage](05-ubuntu-storage.md#terms-used-on-this-page). The commands follow the same pattern as the gateways, with label `sdk-core-data`.
+
 ## Final mount
 
 ```text

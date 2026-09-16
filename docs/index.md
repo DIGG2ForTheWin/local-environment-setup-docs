@@ -1,6 +1,6 @@
-# Domibus AS4 Lab
+# Domibus + Swedish SDK Lab
 
-A complete, version-controlled record of a manually built two-gateway Domibus/eDelivery AS4 laboratory running in VMware Workstation.
+A complete, version-controlled record of a manually built VMware Workstation laboratory containing two Domibus/eDelivery AS4 gateways plus an `sdk-core` DomiSMP node that forms the starting point for a Swedish Säker digital kommunikation (SDK) federation lab.
 
 This repository explains the environment from first principles and preserves the final configuration, validation evidence, failures, fixes, operating procedures, and known-good state. It is written so that a reader who does not yet know what Domibus, AS4, PMode, an MSH, or the WS Plugin are can follow the lab from the bottom up.
 
@@ -33,8 +33,37 @@ The validated business payload was:
 <hello>world</hello>
 ```
 
+
+## Start here
+
+New to the lab? Follow **[Build it step by step](00-build-guide.md)**. It walks through the whole build in order, with exact download links, and links into the detailed chapters below.
+
+Published site: <https://digg2forthewin.github.io/local-environment-setup-docs/>
+
+## SDK-core / DomiSMP extension
+
+The laboratory was extended on 2026-09-16 with a third VM:
+
+- **sdk-core** — `192.168.50.30`
+- **DomiSMP** — 5.2.1.3
+- **Apache Tomcat** — 10.1.59
+- **Eclipse Temurin JDK** — 21.0.12.1 LTS
+- **MySQL** — 8.0.46
+- **MySQL Connector/J** — 8.4.0
+- **Database** — `smp`, 50 tables, `utf8mb3_unicode_ci`
+- **Persistent storage** — `/dev/sdb1` mounted at `/data`
+- **Service account** — `domismp`
+- **systemd** — enabled, active and cold-boot proven
+- **DomiSMP UI** — reachable from Windows at `http://192.168.50.30:8080/smp/`
+- **Snapshot checkpoint** — `02-domismp-installed`
+
+The generic DomiSMP baseline is complete, but it is **not yet claimed to be SDK-conformant**. SDK-specific domain, participant, SML/DNS, certificate and service-metadata configuration begins after the documented snapshot.
+
+The DomiSMP build is documented in [SDK and DomiSMP concepts](25-sdk-and-domismp-concepts.md) through [Next SDK configuration](43-next-sdk-configuration.md).
+
 ## Documentation map
 
+- [Build it step by step](00-build-guide.md)
 - [Concepts](01-concepts.md)
 - [Architecture](02-architecture.md)
 - [Inventory and versions](03-inventory.md)
@@ -56,6 +85,29 @@ The validated business payload was:
 - [Next steps](19-next-steps.md)
 - [Chronological timeline](20-chronological-timeline.md)
 - [Command reference](21-command-reference.md)
+- [Raw observed values](22-raw-observed-values.md)
+- [SOAP extraction and test commands](23-soap-extraction-and-test-commands.md)
+- [Screenshot Evidence](24-screenshot-evidence.md)
+- [SDK and DomiSMP concepts](25-sdk-and-domismp-concepts.md)
+- [sdk-core inventory](26-sdk-core-inventory.md)
+- [sdk-core storage](27-sdk-core-storage.md)
+- [DomiSMP distribution inspection](28-domismp-distribution-inspection.md)
+- [DomiSMP database](29-domismp-database.md)
+- [Tomcat and runtime](30-domismp-tomcat-runtime.md)
+- [JNDI and DomiSMP configuration](31-domismp-configuration.md)
+- [First startup and UI](32-domismp-first-start-ui.md)
+- [systemd and cold reboot](33-domismp-systemd-reboot.md)
+- [DomiSMP failures and fixes](34-domismp-failures-and-fixes.md)
+- [sdk-core security](35-sdk-core-security.md)
+- [sdk-core operations runbook](36-sdk-core-operations-runbook.md)
+- [sdk-core known-good state](37-sdk-core-known-good-state.md)
+- [sdk-core command reference](38-sdk-core-command-reference.md)
+- [sdk-core raw observed values](39-sdk-core-raw-observed-values.md)
+- [sdk-core chronological timeline](40-sdk-core-timeline.md)
+- [sdk-core screenshot evidence](41-sdk-core-screenshot-evidence.md)
+- [Snapshot baseline](42-sdk-core-snapshot-baseline.md)
+- [Next SDK configuration](43-next-sdk-configuration.md)
+- [References](44-references.md)
 
 ## Documentation philosophy
 
@@ -85,7 +137,9 @@ No real passwords are intentionally stored here. The repository records credenti
 <KEYSTORE_PASSWORD>
 ```
 
-Temporary or exposed credentials were changed or rotated where appropriate.
+Generated temporary admin passwords were changed immediately after first use.
+
+On 2026-09-16 a review of the published screenshots found two images that still showed sensitive values: the Blue `domibus.properties` datasource password (`20260915-210800.png`) and the Blue admin bcrypt hash (`20260915-214922.png`). Both images were redacted and the Git history was rewritten so the originals are no longer in the repository.
 
 ## Historical-accuracy policy
 
@@ -95,13 +149,13 @@ This repository separates:
 - **exact commands** retained from the setup conversation;
 - **reconstructed procedures** where the final state is known but the literal earliest command transcript was not retained.
 
-The earliest Ubuntu/LVM command transcript is incomplete in the retained project context. Those gaps are explicitly marked rather than silently invented.
+Where an exact command was not retained, the documentation marks the step as reconstructed rather than silently inventing it. The root-LVM expansion commands, once thought lost, were recovered from screenshot `20260915-185903` and are now documented in [Ubuntu and storage](05-ubuntu-storage.md).
 
 ## Visual evidence archive
 
 The documentation now includes a reviewed screenshot archive from the actual build. It begins with VMware VMnet3 creation and VM provisioning, continues through Ubuntu/LVM/storage/network/MySQL/Domibus configuration, and ends with PMode/admin-recovery diagnostics. See the full [Screenshot Evidence Gallery](24-screenshot-evidence.md).
 
-Two raw source screenshots contained generated Domibus administrator passwords and were intentionally excluded from the published assets.
+Two raw source screenshots contained generated Domibus administrator passwords and were intentionally excluded from the published assets. Two further published screenshots were redacted on 2026-09-16 (see *Secret policy*).
 
 ![VMware VMnet3 configuration](assets/screenshots/20260915-175419.png)
 
@@ -109,14 +163,3 @@ Two raw source screenshots contained generated Domibus administrator passwords a
 
 ![Lab PMode endpoint verification](assets/screenshots/20260915-213818.png)
 
-
-
----
-
-# sdk-core / DomiSMP extension
-
-On 2026-09-16 the lab was extended with `sdk-core` (`192.168.50.30`) running DomiSMP 5.2.1.3 on Tomcat 10.1.59, Java 21 and MySQL 8. The installation is systemd-managed and cold-reboot proven. The known-good VMware checkpoint is `02-domismp-installed`.
-
-Start with [Swedish SDK and DomiSMP concepts](25-sdk-and-domismp-concepts.md), then follow the build through [the sdk-core timeline](40-sdk-core-timeline.md) and [failures/fixes](34-domismp-failures-and-fixes.md).
-
-![DomiSMP 5.2.1.3 landing page](assets/sdk-core-screenshots/20260916-103339-domismp-landing.png)

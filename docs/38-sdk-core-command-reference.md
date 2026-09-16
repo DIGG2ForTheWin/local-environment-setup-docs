@@ -88,7 +88,7 @@ sudo grep -E \
 ## Thread dump
 
 ```bash
-PID=$(cat /opt/domismp/temp/tomcat.pid)
+PID=$(sudo cat /opt/domismp/temp/tomcat.pid)   # sudo: /opt/domismp is mode 750
 sudo -u domismp \
   /usr/lib/jvm/temurin-21-jdk-amd64/bin/jcmd "$PID" Thread.print
 ```

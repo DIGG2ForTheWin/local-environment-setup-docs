@@ -81,6 +81,10 @@ This is a lab-specific choice for a local MySQL connection using `caching_sha2_p
 
 The vendor JKS stores were retained for baseline compatibility. The Java warning recommending PKCS12 was not treated as a reason to change a working security component during initial bring-up.
 
+## Shared sample keystore (lab only)
+
+Blue and Red both use the vendor sample `gateway_keystore.jks`. It contains **both** private keys, `blue_gw` and `red_gw` (screenshot `20260915-213142`). Each gateway selects its own identity with `domibus.security.key.private.alias`, but either VM could technically sign as the other. That is acceptable for an isolated lab using public sample certificates. In production, each Access Point must hold only its own private key, issued by the federation's PKI.
+
 ## Certificate roles
 
 Blue -> Red:
@@ -112,6 +116,17 @@ Never replace placeholders with live secrets in version control.
 The source screenshot archive contains two images that expose generated Domibus administrator passwords in terminal log output. Those two images were deliberately excluded from the GitHub-ready documentation assets. This is an important example of why raw troubleshooting screenshots must be reviewed before publication.
 
 Published screenshots were selected/copy-reviewed for the same repository policy used for text: do not intentionally publish passwords, private keys or other reusable secrets.
+
+That first review was not complete. A full image-by-image review on 2026-09-16 found two more published screenshots with sensitive content:
+
+| Screenshot | Content | Action |
+|---|---|---|
+| `20260915-210800.png` | `nano` editing `domibus.properties`, showing the Blue `domibus.datasource.password` value | Value blacked out; Git history rewritten |
+| `20260915-214922.png` | `SELECT * FROM TB_USER` showing the Blue `admin` bcrypt password hash | Hash blacked out; Git history rewritten |
+
+The remaining password-like values visible in screenshots are **public vendor sample defaults** shipped in the Domibus download (`test123` for the sample keystore/truststore, commented-out `edelivery`/`changeit`). They are not lab secrets. SSH host *public* keys and fingerprints are also not secrets.
+
+**Lesson:** review every screenshot at full size before publishing, especially editor windows (`nano`) on configuration files and `SELECT *` on user tables.
 
 ### Safe screenshot evidence
 

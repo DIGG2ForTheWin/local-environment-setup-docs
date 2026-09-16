@@ -6,6 +6,8 @@
 domibus-msh-sql-distribution-1.21.zip
 ```
 
+Download: <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/domibus/domibus-msh-sql-distribution/1.21/domibus-msh-sql-distribution-1.21.zip>
+
 Extracted under:
 
 ```text

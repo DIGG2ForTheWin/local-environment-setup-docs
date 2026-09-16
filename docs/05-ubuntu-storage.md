@@ -6,9 +6,29 @@ Blue and Red use Ubuntu Server 24.04.5 LTS. SSH was enabled for remote administr
 
 ## OS disk and LVM
 
-Each gateway has an approximately 60 GB OS virtual disk. The initial Ubuntu LVM root did not consume the entire disk, so the root logical volume/filesystem was extended until `/` was approximately 57 GB total.
+Each gateway has an approximately 60 GB OS virtual disk. The Ubuntu installer put `/` on an **LVM** logical volume (a resizable "virtual partition") but used only about 29 GB of the 58 GB volume group. The root logical volume and its filesystem were therefore extended to use all free space.
 
-The literal earliest LVM command transcript is not retained in the current project context. The verified end state is therefore documented without inventing exact historical commands.
+Exact commands, visible in screenshot `20260915-185903`:
+
+```bash
+sudo vgs        # ubuntu-vg: VSize <58.00g, VFree 29.00g
+sudo lvs        # ubuntu-lv: <29.00g
+sudo lvextend -l +100%FREE -r /dev/ubuntu-vg/ubuntu-lv
+df -hT /        # 57G ext4
+```
+
+`-l +100%FREE` gives the logical volume all remaining extents. `-r` grows the ext4 filesystem at the same time (online, via `resize2fs`).
+
+## Terms used on this page
+
+| Term | Meaning |
+|---|---|
+| **LVM** | Logical Volume Manager: disks become a volume group (`ubuntu-vg`), from which resizable logical volumes (`ubuntu-lv`) are cut. |
+| **GPT** | The modern partition-table format used for `/dev/sdb`. |
+| **ext4** | The standard Linux filesystem. |
+| **Label** | A human-readable filesystem name (`domibus-data`). |
+| **UUID** | A unique filesystem ID. `/etc/fstab` uses it because device names such as `/dev/sdb` can change between boots. |
+| **`nofail`** | fstab option: if the disk is missing, boot continues instead of stopping in emergency mode. systemd's `RequiresMountsFor=/data` then keeps Domibus from starting without it. |
 
 ## Data disk
 
@@ -66,6 +86,22 @@ Red:
 
 ```text
 559ba590-135c-4742-b1ce-583ab200b086
+```
+
+## Commands used
+
+Observed on Blue (screenshots `20260915-200824` to `201008`) and repeated on Red:
+
+```bash
+sudo parted -s /dev/sdb mklabel gpt
+sudo parted -s /dev/sdb mkpart primary ext4 0% 100%
+sudo mkfs.ext4 -L domibus-data /dev/sdb1
+sudo mkdir -p /data
+UUID=$(sudo blkid -s UUID -o value /dev/sdb1)
+echo "UUID=$UUID /data ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab
+sudo systemctl daemon-reload
+sudo mount -a
+sudo umount /data && sudo mount /data     # proves the fstab entry
 ```
 
 ## fstab form

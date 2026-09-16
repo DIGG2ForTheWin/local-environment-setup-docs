@@ -7,7 +7,12 @@ This chapter indexes the reviewed screenshot archive supplied for the lab. The i
 
 ## How to read the timestamps
 
-Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Application logs visible inside screenshots often use UTC, so their internal log time can differ from the desktop capture time.
+Asset names use the screenshot capture timestamp in **Windows local time (CEST, UTC+2)**: `20260915-HHMMSS.png`. Application logs and MySQL timestamps inside the screenshots are **UTC**, so a screenshot taken at 21:14 shows log lines around 19:13.
+
+The sdk-core / DomiSMP screenshots are on [sdk-core screenshot evidence](41-sdk-core-screenshot-evidence.md).
+
+!!! note "Redacted images"
+    `20260915-210800.png` (datasource password) and `20260915-214922.png` (admin password hash) were redacted on 2026-09-16 after a full review. The remaining visible passwords, such as `test123`, are public vendor sample defaults.
 
 ## VMware network and VM provisioning
 
@@ -39,9 +44,9 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 18:50:46
 
-<img src="assets/screenshots/20260915-185046.png" alt="Build evidence captured at 18:50:46 during the ubuntu installation, base services and root-volume preparation phase." width="900">
+<img src="assets/screenshots/20260915-185046.png" alt="Blue: Ubuntu Server installer finished (&quot;Installation complete!&quot;), including openssh-server installation, before &quot;Reboot Now&quot;." width="900">
 
-*Build evidence captured at 18:50:46 during the ubuntu installation, base services and root-volume preparation phase.*
+*Blue: Ubuntu Server installer finished ("Installation complete!"), including openssh-server installation, before "Reboot Now".*
 
 ### 18:51:47
 
@@ -57,9 +62,9 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 18:54:25
 
-<img src="assets/screenshots/20260915-185425.png" alt="Build evidence captured at 18:54:25 during the ubuntu installation, base services and root-volume preparation phase." width="900">
+<img src="assets/screenshots/20260915-185425.png" alt="Blue first boot: cloud-init prints the newly generated SSH host key fingerprints and public host keys (public keys, not secrets)." width="900">
 
-*Build evidence captured at 18:54:25 during the ubuntu installation, base services and root-volume preparation phase.*
+*Blue first boot: cloud-init prints the newly generated SSH host key fingerprints and public host keys (public keys, not secrets).*
 
 ### 18:56:05
 
@@ -93,9 +98,9 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 19:10:28
 
-<img src="assets/screenshots/20260915-191028.png" alt="Build evidence captured at 19:10:28 during the ubuntu installation, base services and root-volume preparation phase." width="900">
+<img src="assets/screenshots/20260915-191028.png" alt="Blue package health check: dpkg audit, apt check, four upgradable netplan packages, autoremove preview and no failed systemd units." width="900">
 
-*Build evidence captured at 19:10:28 during the ubuntu installation, base services and root-volume preparation phase.*
+*Blue package health check: dpkg audit, apt check, four upgradable netplan packages, autoremove preview and no failed systemd units.*
 
 ### 19:11:35
 
@@ -137,15 +142,15 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 19:42:16
 
-<img src="assets/screenshots/20260915-194216.png" alt="Build evidence captured at 19:42:16 during the cloned-vm identity and host-only networking phase." width="900">
+<img src="assets/screenshots/20260915-194216.png" alt="Blue ip -br addr: NAT ens33 had DHCP address 192.168.140.131 and host-only ens34 was still DOWN." width="900">
 
-*Build evidence captured at 19:42:16 during the cloned-vm identity and host-only networking phase.*
+*Blue `ip -br addr`: NAT `ens33` had DHCP address 192.168.140.131 and host-only `ens34` was still DOWN.*
 
 ### 19:50:04
 
-<img src="assets/screenshots/20260915-195004.png" alt="Build evidence captured at 19:50:04 during the cloned-vm identity and host-only networking phase." width="900">
+<img src="assets/screenshots/20260915-195004.png" alt="Blue ip -br addr again: NAT ens33 now 192.168.140.129, ens34 still DOWN before static configuration." width="900">
 
-*Build evidence captured at 19:50:04 during the cloned-vm identity and host-only networking phase.*
+*Blue `ip -br addr` again: NAT `ens33` now 192.168.140.129, `ens34` still DOWN before static configuration.*
 
 ## Persistent data-disk creation and mounts
 
@@ -175,9 +180,9 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 20:09:56
 
-<img src="assets/screenshots/20260915-200956.png" alt="Build evidence captured at 20:09:56 during the persistent data-disk creation and mounts phase." width="900">
+<img src="assets/screenshots/20260915-200956.png" alt="Blue full storage proof: /etc/fstab with the data-disk UUID, /data mounted from /dev/sdb1, directory tree, 196 G free and data.mount active in systemd." width="900">
 
-*Build evidence captured at 20:09:56 during the persistent data-disk creation and mounts phase.*
+*Blue full storage proof: `/etc/fstab` with the data-disk UUID, `/data` mounted from `/dev/sdb1`, directory tree, 196 G free and `data.mount` active in systemd.*
 
 ### 20:10:08
 
@@ -205,15 +210,15 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 20:14:04
 
-<img src="assets/screenshots/20260915-201404.png" alt="Build evidence captured at 20:14:04 during the persistent data-disk creation and mounts phase." width="900">
+<img src="assets/screenshots/20260915-201404.png" alt="Red data-disk verification: /data from /dev/sdb1, UUID 559ba590-…, fstab entry and the root-owned directory tree." width="900">
 
-*Build evidence captured at 20:14:04 during the persistent data-disk creation and mounts phase.*
+*Red data-disk verification: `/data` from `/dev/sdb1`, UUID 559ba590-…, fstab entry and the root-owned directory tree.*
 
 ### 20:17:13
 
-<img src="assets/screenshots/20260915-201713.png" alt="Build evidence captured at 20:17:13 during the persistent data-disk creation and mounts phase." width="900">
+<img src="assets/screenshots/20260915-201713.png" alt="Blue apt policy temurin-21-jdk: Adoptium repository offering Temurin 21.0.12.1 (candidate) down to 21.0.3." width="900">
 
-*Build evidence captured at 20:17:13 during the persistent data-disk creation and mounts phase.*
+*Blue `apt policy temurin-21-jdk`: Adoptium repository offering Temurin 21.0.12.1 (candidate) down to 21.0.3.*
 
 ## MySQL listener/base package preparation
 
@@ -233,45 +238,45 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 20:37:48
 
-<img src="assets/screenshots/20260915-203748.png" alt="Build evidence captured at 20:37:48 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-203748.png" alt="Blue ~/dl/sql-dist/sql-scripts/5.2.1/mysql/ listing and the first lines of mysql-5.2.1.ddl (Liquibase-generated, 5.2.1 changelog)." width="900">
 
-*Build evidence captured at 20:37:48 during the domibus database schema and grants phase.*
+*Blue `~/dl/sql-dist/sql-scripts/5.2.1/mysql/` listing and the first lines of `mysql-5.2.1.ddl` (Liquibase-generated, 5.2.1 changelog).*
 
 ### 20:37:55
 
-<img src="assets/screenshots/20260915-203755.png" alt="Build evidence captured at 20:37:55 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-203755.png" alt="mysql-5.2.1.ddl: the ASSERT_DB_VERSION_IS stored procedure that refuses to run on a non-empty schema." width="900">
 
-*Build evidence captured at 20:37:55 during the domibus database schema and grants phase.*
+*`mysql-5.2.1.ddl`: the `ASSERT_DB_VERSION_IS` stored procedure that refuses to run on a non-empty schema.*
 
 ### 20:38:04
 
-<img src="assets/screenshots/20260915-203804.png" alt="Build evidence captured at 20:38:04 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-203804.png" alt="End of the main DDL header (EXECUTE_AND_IGNORE_ERROR procedure) and start of mysql-5.2.1-data.ddl." width="900">
 
-*Build evidence captured at 20:38:04 during the domibus database schema and grants phase.*
+*End of the main DDL header (`EXECUTE_AND_IGNORE_ERROR` procedure) and start of `mysql-5.2.1-data.ddl`.*
 
 ### 20:38:13
 
-<img src="assets/screenshots/20260915-203813.png" alt="Build evidence captured at 20:38:13 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-203813.png" alt="mysql-5.2.1-data.ddl header: the same version-assertion functions as the main DDL." width="900">
 
-*Build evidence captured at 20:38:13 during the domibus database schema and grants phase.*
+*`mysql-5.2.1-data.ddl` header: the same version-assertion functions as the main DDL.*
 
 ### 20:38:21
 
-<img src="assets/screenshots/20260915-203821.png" alt="Build evidence captured at 20:38:21 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-203821.png" alt="mysql-5.2.1-data.ddl continued: CALL ASSERT_DB_VERSION_IS('ignore') and helper procedure definitions. These stored functions are why ERROR 1419 occurs with binary logging." width="900">
 
-*Build evidence captured at 20:38:21 during the domibus database schema and grants phase.*
+*`mysql-5.2.1-data.ddl` continued: `CALL ASSERT_DB_VERSION_IS('ignore')` and helper procedure definitions. These stored functions are why ERROR 1419 occurs with binary logging.*
 
 ### 20:38:28
 
-<img src="assets/screenshots/20260915-203828.png" alt="Build evidence captured at 20:38:28 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-203828.png" alt="Continuation of the data DDL's EXECUTE_AND_IGNORE_ERROR procedure." width="900">
 
-*Build evidence captured at 20:38:28 during the domibus database schema and grants phase.*
+*Continuation of the data DDL's `EXECUTE_AND_IGNORE_ERROR` procedure.*
 
 ### 20:38:44
 
-<img src="assets/screenshots/20260915-203844.png" alt="Build evidence captured at 20:38:44 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-203844.png" alt="grep of the DDL for CREATE DATABASE, USE or CREATE USER: none present (only the word &quot;use&quot; in comments), so the database and user must be created manually first." width="900">
 
-*Build evidence captured at 20:38:44 during the domibus database schema and grants phase.*
+*grep of the DDL for `CREATE DATABASE`, `USE` or `CREATE USER`: none present (only the word "use" in comments), so the database and user must be created manually first.*
 
 ### 20:44:38
 
@@ -293,15 +298,15 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 20:49:35
 
-<img src="assets/screenshots/20260915-204935.png" alt="Build evidence captured at 20:49:35 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-204935.png" alt="Blue non-empty tables after import (TB_LOCK, TB_D_MSH_ROLE, TB_USER_ROLE, TB_VERSION…) and the TB_USER% table list." width="900">
 
-*Build evidence captured at 20:49:35 during the domibus database schema and grants phase.*
+*Blue non-empty tables after import (`TB_LOCK`, `TB_D_MSH_ROLE`, `TB_USER_ROLE`, `TB_VERSION`…) and the `TB_USER%` table list.*
 
 ### 20:49:46
 
-<img src="assets/screenshots/20260915-204946.png" alt="Build evidence captured at 20:49:46 during the domibus database schema and grants phase." width="900">
+<img src="assets/screenshots/20260915-204946.png" alt="Blue SHOW TABLES LIKE 'TB_PM%': the PMode configuration tables." width="900">
 
-*Build evidence captured at 20:49:46 during the domibus database schema and grants phase.*
+*Blue `SHOW TABLES LIKE 'TB_PM%'`: the PMode configuration tables.*
 
 ### 20:49:55
 
@@ -313,9 +318,9 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 20:53:55
 
-<img src="assets/screenshots/20260915-205355.png" alt="Domibus schema validation showing 119 tables and version information." width="900">
+<img src="assets/screenshots/20260915-205355.png" alt="Red schema validation: 119 tables, TB_VERSION 5.2.1 and the non-empty seed tables." width="900">
 
-*Domibus schema validation showing 119 tables and version information.*
+*Red schema validation: 119 tables, `TB_VERSION` 5.2.1 and the non-empty seed tables.*
 
 ### 20:55:37
 
@@ -325,27 +330,27 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 20:55:49
 
-<img src="assets/screenshots/20260915-205549.png" alt="Build evidence captured at 20:55:49 during the domibus distributions, samples and jdbc driver phase." width="900">
+<img src="assets/screenshots/20260915-205549.png" alt="Tomcat full distribution listing continued: bundled Tomcat lib/ JARs." width="900">
 
-*Build evidence captured at 20:55:49 during the domibus distributions, samples and jdbc driver phase.*
+*Tomcat full distribution listing continued: bundled Tomcat `lib/` JARs.*
 
 ### 20:56:03
 
-<img src="assets/screenshots/20260915-205603.png" alt="Build evidence captured at 20:56:03 during the domibus distributions, samples and jdbc driver phase." width="900">
+<img src="assets/screenshots/20260915-205603.png" alt="Tomcat full distribution listing continued: bin/ scripts and conf/ files." width="900">
 
-*Build evidence captured at 20:56:03 during the domibus distributions, samples and jdbc driver phase.*
+*Tomcat full distribution listing continued: `bin/` scripts and `conf/` files.*
 
 ### 20:56:14
 
-<img src="assets/screenshots/20260915-205614.png" alt="Build evidence captured at 20:56:14 during the domibus distributions, samples and jdbc driver phase." width="900">
+<img src="assets/screenshots/20260915-205614.png" alt="End of the full distribution listing: sample gateway_keystore.jks/gateway_truststore.jks, 124 files, about 149 MB uncompressed." width="900">
 
-*Build evidence captured at 20:56:14 during the domibus distributions, samples and jdbc driver phase.*
+*End of the full distribution listing: sample `gateway_keystore.jks`/`gateway_truststore.jks`, 124 files, about 149 MB uncompressed.*
 
 ### 20:56:27
 
-<img src="assets/screenshots/20260915-205627.png" alt="Build evidence captured at 20:56:27 during the domibus distributions, samples and jdbc driver phase." width="900">
+<img src="assets/screenshots/20260915-205627.png" alt="unzip -Z1 top-level entries: changelog.txt, domibus/, upgrade-info.md. Extracting to /opt creates /opt/domibus." width="900">
 
-*Build evidence captured at 20:56:27 during the domibus distributions, samples and jdbc driver phase.*
+*`unzip -Z1` top-level entries: `changelog.txt`, `domibus/`, `upgrade-info.md`. Extracting to `/opt` creates `/opt/domibus`.*
 
 ### 20:56:43
 
@@ -375,99 +380,99 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 21:00:19
 
-<img src="assets/screenshots/20260915-210019.png" alt="Build evidence captured at 21:00:19 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210019.png" alt="Default domibus.properties: GUI section (title, support team, CSV limits, message-log page settings)." width="900">
 
-*Build evidence captured at 21:00:19 during the domibus configuration and first startup phase.*
+*Default `domibus.properties`: GUI section (title, support team, CSV limits, message-log page settings).*
 
 ### 21:00:28
 
-<img src="assets/screenshots/20260915-210028.png" alt="Build evidence captured at 21:00:28 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210028.png" alt="Default domibus.properties: session settings and keystore location/type/password. test123 is the public vendor sample value." width="900">
 
-*Build evidence captured at 21:00:28 during the domibus configuration and first startup phase.*
+*Default `domibus.properties`: session settings and keystore location/type/password. `test123` is the public vendor sample value.*
 
 ### 21:00:38
 
-<img src="assets/screenshots/20260915-210038.png" alt="Build evidence captured at 21:00:38 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210038.png" alt="Default domibus.properties: private key alias blue_gw and truststore settings (sample password test123)." width="900">
 
-*Build evidence captured at 21:00:38 during the domibus configuration and first startup phase.*
+*Default `domibus.properties`: private key alias `blue_gw` and truststore settings (sample password `test123`).*
 
 ### 21:00:49
 
-<img src="assets/screenshots/20260915-210049.png" alt="Build evidence captured at 21:00:49 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210049.png" alt="Default domibus.properties: RSA security profile and signature settings (all commented)." width="900">
 
-*Build evidence captured at 21:00:49 during the domibus configuration and first startup phase.*
+*Default `domibus.properties`: RSA security profile and signature settings (all commented).*
 
 ### 21:00:59
 
-<img src="assets/screenshots/20260915-210059.png" alt="Build evidence captured at 21:00:59 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210059.png" alt="Default domibus.properties: RSA encryption settings and the start of the Database section (serverName=localhost, port=3306, schema=domibus)." width="900">
 
-*Build evidence captured at 21:00:59 during the domibus configuration and first startup phase.*
+*Default `domibus.properties`: RSA encryption settings and the start of the Database section (`serverName=localhost`, `port=3306`, `schema=domibus`).*
 
 ### 21:01:11
 
-<img src="assets/screenshots/20260915-210111.png" alt="Build evidence captured at 21:01:11 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210111.png" alt="Default datasource is H2; grep of default-domibus.properties for password/JDBC settings begins." width="900">
 
-*Build evidence captured at 21:01:11 during the domibus configuration and first startup phase.*
+*Default datasource is H2; grep of `default-domibus.properties` for password/JDBC settings begins.*
 
 ### 21:01:26
 
-<img src="assets/screenshots/20260915-210126.png" alt="Build evidence captured at 21:01:26 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210126.png" alt="grep continued: plugin password policy and default-domibus.properties placeholder values (keystore_password, private_key_password)." width="900">
 
-*Build evidence captured at 21:01:26 during the domibus configuration and first startup phase.*
+*grep continued: plugin password policy and `default-domibus.properties` placeholder values (`keystore_password`, `private_key_password`).*
 
 ### 21:01:42
 
-<img src="assets/screenshots/20260915-210142.png" alt="Build evidence captured at 21:01:42 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210142.png" alt="grep continued: TLS, e-archiving and alert password settings in default-domibus.properties (all empty or commented)." width="900">
 
-*Build evidence captured at 21:01:42 during the domibus configuration and first startup phase.*
+*grep continued: TLS, e-archiving and alert password settings in `default-domibus.properties` (all empty or commented).*
 
 ### 21:01:52
 
-<img src="assets/screenshots/20260915-210152.png" alt="Build evidence captured at 21:01:52 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210152.png" alt="grep of domibus.properties: keystore/truststore sample passwords and the commented MySQL/Oracle datasource examples." width="900">
 
-*Build evidence captured at 21:01:52 during the domibus configuration and first startup phase.*
+*grep of `domibus.properties`: keystore/truststore sample passwords and the commented MySQL/Oracle datasource examples.*
 
 ### 21:02:12
 
-<img src="assets/screenshots/20260915-210212.png" alt="Build evidence captured at 21:02:12 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210212.png" alt="grep continued: commented replica datasource settings. This replica URL is the line a later broad sed accidentally also edited." width="900">
 
-*Build evidence captured at 21:02:12 during the domibus configuration and first startup phase.*
+*grep continued: commented replica datasource settings. This replica URL is the line a later broad `sed` accidentally also edited.*
 
 ### 21:02:26
 
-<img src="assets/screenshots/20260915-210226.png" alt="Build evidence captured at 21:02:26 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210226.png" alt="grep continued: Quartz datasource and Hibernate dialect settings." width="900">
 
-*Build evidence captured at 21:02:26 during the domibus configuration and first startup phase.*
+*grep continued: Quartz datasource and Hibernate dialect settings.*
 
 ### 21:02:37
 
-<img src="assets/screenshots/20260915-210237.png" alt="Build evidence captured at 21:02:37 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210237.png" alt="grep continued: password-encryption and password-policy settings (commented defaults)." width="900">
 
-*Build evidence captured at 21:02:37 during the domibus configuration and first startup phase.*
+*grep continued: password-encryption and password-policy settings (commented defaults).*
 
 ### 21:02:48
 
-<img src="assets/screenshots/20260915-210248.png" alt="Build evidence captured at 21:02:48 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210248.png" alt="grep continued: plugin password policy, proxy and JMX credential settings (empty)." width="900">
 
-*Build evidence captured at 21:02:48 during the domibus configuration and first startup phase.*
+*grep continued: plugin password policy, proxy and JMX credential settings (empty).*
 
 ### 21:03:00
 
-<img src="assets/screenshots/20260915-210300.png" alt="Build evidence captured at 21:03:00 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210300.png" alt="grep continued: commented ActiveMQ credentials (vendor default) and alert settings." width="900">
 
-*Build evidence captured at 21:03:00 during the domibus configuration and first startup phase.*
+*grep continued: commented ActiveMQ credentials (vendor default) and alert settings.*
 
 ### 21:03:15
 
-<img src="assets/screenshots/20260915-210315.png" alt="Build evidence captured at 21:03:15 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210315.png" alt="grep continued: TLS/e-archiving settings, then JDBC / DATASOURCE REFERENCES search across /opt/domibus/conf." width="900">
 
-*Build evidence captured at 21:03:15 during the domibus configuration and first startup phase.*
+*grep continued: TLS/e-archiving settings, then `JDBC / DATASOURCE REFERENCES` search across `/opt/domibus/conf`.*
 
 ### 21:03:25
 
-<img src="assets/screenshots/20260915-210325.png" alt="Build evidence captured at 21:03:25 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210325.png" alt="Datasource reference search continued (replica and pool settings)." width="900">
 
-*Build evidence captured at 21:03:25 during the domibus configuration and first startup phase.*
+*Datasource reference search continued (replica and pool settings).*
 
 ### 21:04:05
 
@@ -477,15 +482,15 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 21:04:12
 
-<img src="assets/screenshots/20260915-210412.png" alt="Build evidence captured at 21:04:12 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-210412.png" alt="Java and Tomcat versions: Temurin 21.0.12.1+1-LTS, Apache Tomcat 10.1.54, CATALINA_BASE=/opt/domibus." width="900">
 
-*Build evidence captured at 21:04:12 during the domibus configuration and first startup phase.*
+*Java and Tomcat versions: Temurin 21.0.12.1+1-LTS, Apache Tomcat 10.1.54, `CATALINA_BASE=/opt/domibus`.*
 
 ### 21:08:00
 
-<img src="assets/screenshots/20260915-210800.png" alt="Editing Domibus properties for the lab configuration." width="900">
+<img src="assets/screenshots/20260915-210800.png" alt="Editing domibus.properties: MySQL driver, JDBC URL and edelivery_user set. The password value is redacted in this image." width="900">
 
-*Editing Domibus properties for the lab configuration.*
+*Editing `domibus.properties`: MySQL driver, JDBC URL and `edelivery_user` set. The password value is **redacted** in this image.*
 
 ### 21:08:42
 
@@ -531,47 +536,47 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 21:17:33
 
-<img src="assets/screenshots/20260915-211733.png" alt="Build evidence captured at 21:17:33 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-211733.png" alt="Diagnosis: the Tomcat JVM's working directory was /home/xander/dl, which caused the FreeMarker FileNotFoundException. Startup had been run from the wrong directory." width="900">
 
-*Build evidence captured at 21:17:33 during the domibus configuration and first startup phase.*
+*Diagnosis: the Tomcat JVM's working directory was `/home/xander/dl`, which caused the FreeMarker `FileNotFoundException`. Startup had been run from the wrong directory.*
 
 ### 21:17:44
 
-<img src="assets/screenshots/20260915-211744.png" alt="Build evidence captured at 21:17:44 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-211744.png" alt="FreeMarker java.io.FileNotFoundException: /home/xander/dl does not exist stack trace from catalina.out." width="900">
 
-*Build evidence captured at 21:17:44 during the domibus configuration and first startup phase.*
+*FreeMarker `java.io.FileNotFoundException: /home/xander/dl does not exist` stack trace from `catalina.out`.*
 
 ### 21:17:57
 
-<img src="assets/screenshots/20260915-211757.png" alt="Build evidence captured at 21:17:57 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-211757.png" alt="domibus-error.log warnings: Spring Security notices and sample passwords that don't meet the password policy (expected with vendor sample stores)." width="900">
 
-*Build evidence captured at 21:17:57 during the domibus configuration and first startup phase.*
+*`domibus-error.log` warnings: Spring Security notices and sample passwords that don't meet the password policy (expected with vendor sample stores).*
 
 ### 21:18:06
 
-<img src="assets/screenshots/20260915-211806.png" alt="Build evidence captured at 21:18:06 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-211806.png" alt="Password-policy warnings continued: keystore, private key, datasource and Quartz datasource properties." width="900">
 
-*Build evidence captured at 21:18:06 during the domibus configuration and first startup phase.*
+*Password-policy warnings continued: keystore, private key, datasource and Quartz datasource properties.*
 
 ### 21:18:12
 
-<img src="assets/screenshots/20260915-211812.png" alt="Build evidence captured at 21:18:12 during the domibus configuration and first startup phase." width="900">
+<img src="assets/screenshots/20260915-211812.png" alt="End of the warnings: SAMPLE CERTIFICATES ARE BEING USED - NOT FOR PRODUCTION USAGE." width="900">
 
-*Build evidence captured at 21:18:12 during the domibus configuration and first startup phase.*
+*End of the warnings: `SAMPLE CERTIFICATES ARE BEING USED - NOT FOR PRODUCTION USAGE`.*
 
 ## Runtime troubleshooting and payload configuration
 
 ### 21:20:26
 
-<img src="assets/screenshots/20260915-212026.png" alt="MySQL/network listener validation during application troubleshooting." width="900">
+<img src="assets/screenshots/20260915-212026.png" alt="After restarting from /opt/domibus: working directory correct, port 8080 owned by Java, HTTP 302; the only Caused by line was a logback ClassNotFoundException from the earlier stopped instance." width="900">
 
-*MySQL/network listener validation during application troubleshooting.*
+*After restarting from `/opt/domibus`: working directory correct, port 8080 owned by Java, HTTP 302; the only `Caused by` line was a logback `ClassNotFoundException` from the earlier stopped instance.*
 
 ### 21:21:47
 
-<img src="assets/screenshots/20260915-212147.png" alt="Build evidence captured at 21:21:47 during the runtime troubleshooting and payload configuration phase." width="900">
+<img src="assets/screenshots/20260915-212147.png" alt="Attempted current-boot error check. tail -n + failed because START_LINE was empty (the grep pattern didn't match), so its [PASS] result was not meaningful." width="900">
 
-*Build evidence captured at 21:21:47 during the runtime troubleshooting and payload configuration phase.*
+*Attempted current-boot error check. `tail -n +` failed because `START_LINE` was empty (the grep pattern didn't match), so its `[PASS]` result was not meaningful.*
 
 ### 21:22:10
 
@@ -593,9 +598,9 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 21:29:44
 
-<img src="assets/screenshots/20260915-212944.png" alt="Java/Tomcat process, filesystem and log verification on Blue." width="900">
+<img src="assets/screenshots/20260915-212944.png" alt="Two Domibus JVMs running at the same time (PIDs 3442 and 5008), with 8080 owned by 5008. This is the stale-process problem in failure 3." width="900">
 
-*Java/Tomcat process, filesystem and log verification on Blue.*
+*Two Domibus JVMs running at the same time (PIDs 3442 and 5008), with 8080 owned by 5008. This is the stale-process problem in [failure 3](14-failures-and-fixes.md#3-stale-java-process).*
 
 ## Certificates and PMode configuration
 
@@ -649,9 +654,9 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 21:34:49
 
-<img src="assets/screenshots/20260915-213449.png" alt="PMode grep/validation checks." width="900">
+<img src="assets/screenshots/20260915-213449.png" alt="Unique URLs in the sample Blue PMode (placeholder blue_hostname/red_hostname endpoints) and the active security identity lines in domibus.properties." width="900">
 
-*PMode grep/validation checks.*
+*Unique URLs in the sample Blue PMode (placeholder `blue_hostname`/`red_hostname` endpoints) and the active security identity lines in `domibus.properties`.*
 
 ### 21:38:18
 
@@ -669,15 +674,15 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 21:43:37
 
-<img src="assets/screenshots/20260915-214337.png" alt="Build evidence captured at 21:43:37 during the admin-account/database recovery phase." width="900">
+<img src="assets/screenshots/20260915-214337.png" alt="Admin recovery prep: the leftover JVM (PID 5008) terminated, then mysqldump backup ~/dl/backups/blue-before-admin-reset.sql (214 K, mode 700 directory)." width="900">
 
-*Build evidence captured at 21:43:37 during the admin-account/database recovery phase.*
+*Admin recovery prep: the leftover JVM (PID 5008) terminated, then `mysqldump` backup `~/dl/backups/blue-before-admin-reset.sql` (214 K, mode 700 directory).*
 
 ### 21:47:34
 
-<img src="assets/screenshots/20260915-214734.png" alt="Database backup/admin recovery verification work." width="900">
+<img src="assets/screenshots/20260915-214734.png" alt="Admin recovery: admin rows deleted and committed, Domibus restarted and reachable. The queries still used the wrong column name USER_ID (TB_USER uses ID_PK)." width="900">
 
-*Database backup/admin recovery verification work.*
+*Admin recovery: admin rows deleted and committed, Domibus restarted and reachable. The queries still used the wrong column name `USER_ID` (`TB_USER` uses `ID_PK`).*
 
 ### 21:49:12
 
@@ -687,9 +692,9 @@ Asset names use the screenshot capture timestamp: `20260915-HHMMSS.png`. Applica
 
 ### 21:49:22
 
-<img src="assets/screenshots/20260915-214922.png" alt="Admin-related database table structure inspection continued." width="900">
+<img src="assets/screenshots/20260915-214922.png" alt="TB_USER admin row recreated by Domibus with DEFAULT_PASSWORD=0x01. The password hash is redacted in this image." width="900">
 
-*Admin-related database table structure inspection continued.*
+*`TB_USER` admin row recreated by Domibus with `DEFAULT_PASSWORD=0x01`. The password hash is **redacted** in this image.*
 
 ### 21:49:29
 
