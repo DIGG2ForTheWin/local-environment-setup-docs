@@ -672,9 +672,61 @@ Open <http://192.168.50.30:8080/smp/> from Windows. Log in as `system` with the 
 
 ---
 
-## 18. What's next
+## 18. SMP signing certificate and the `sdk-lab` domain
 
-The generic DomiSMP is running, but it is **not yet configured for Swedish SDK**: no SDK domain, participants, SML/DNS or certificates. Continue with [Next SDK configuration](next-steps.md).
+**What it is.** DomiSMP signs the metadata it returns. Instead of the vendor test keys (`issuer`, `sample_key`), the lab creates its own small PKI: a root CA and a leaf "sdk-core SMP Signing" certificate. It then creates a DomiSMP **domain** `sdk-lab` that uses that key.
+
+**Do it.**
+
+1. On sdk-core, create an operator-owned PKI folder **outside** the DomiSMP tree: `/data/sdk-pki` (mode 700). Generate an RSA-4096 root CA with critical `CA:TRUE` + `Certificate Sign, CRL Sign`, and an RSA-3072 leaf with `CA:FALSE` + critical `Digital Signature`, then export the leaf and chain as PKCS#12 alias `sdk_lab_smp_signing`. Details: [PKI](sdk-sml/02-pki.md).
+2. Copy **only the `.p12`** to Windows. In DomiSMP: *System Settings → Keystore → Import keystore*, type **PKCS #12**. Use the *Choose keystore* button; the grey filename field is read-only. See [SMP keystore](sdk-sml/03-smp-keystore.md).
+3. *System Settings → Domain → Create domain*: code `sdk-lab`, response signature certificate `sdk_lab_smp_signing`, Public.
+4. On the domain: *Resource Types* → only `smp-1` (OASIS SMP 1.0); *Members* → `system` as ADMIN.
+5. Leave *SML integration* **empty** for now. See [sdk-lab domain](sdk-sml/04-sdk-lab-domain.md).
+
+**Verify.** The orange "To complete domain configuration" banner disappears, and the Keystore page shows `sdk_lab_smp_signing` with issuer `SDK Lab SMP Root CA`.
+
+![sdk-lab domain with signing certificate](assets/smp-sml-screenshots/20260916-114615.png)
+
+---
+
+## 19. Install DomiSML 5.1.0.3 on port 8081
+
+**What it is.** DomiSML is the EC's SML: the index that tells senders which SMP holds a participant, published in DNS. The lab runs its own copy next to DomiSMP, so nothing touches Digg's real SML.
+
+**Downloads:**
+
+| File | Download | MD5 |
+|---|---|---|
+| `bdmsl-webapp-5.1.0.3.war` | [download](https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/bdmsl/bdmsl-webapp/5.1.0.3/bdmsl-webapp-5.1.0.3.war) | `a4a3c145e67405c6c2dbf7ae110ccd5c` |
+| `bdmsl-webapp-5.1.0.3-setup.zip` | [download](https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/bdmsl/bdmsl-webapp/5.1.0.3/bdmsl-webapp-5.1.0.3-setup.zip) | `970a17bc8a709515499230659858c9a4` |
+
+**Do it** (full commands: [Commands](sdk-sml/15-commands.md)):
+
+1. **Database** `sml_schema` as `utf8mb3` / `utf8mb3_bin`, user `sml_dbuser@localhost`; import `mysql.ddl`, then `mysql-data.sql`. Expect 19 tables. See [Database](sdk-sml/05-database.md).
+2. **Runtime**: user `domisml`, a *separate* Tomcat 10.1.59 in `/opt/domisml` with shutdown port **8006** and HTTP **8081**, Connector/J, `/data/domisml/{logs,security,domisml-libs,tmp,backups}`, heap 512m–1024m. `setenv.sh` sets `CLASSPATH=/opt/domisml/classes` (holding `sml.config.properties` and `sml-logback.xml`) and **`-Dsml.log.folder=/data/domisml/logs`**. See [Tomcat runtime](sdk-sml/06-tomcat-runtime.md).
+3. **JNDI** datasource `jdbc/edelivery` in `/opt/domisml/conf/Catalina/localhost/edelivery-sml.xml` (app-scoped, not global `context.xml`), `minIdle=2`. See [JNDI](sdk-sml/09-jndi.md).
+4. Deploy the WAR as `webapps/edelivery-sml.war`.
+5. **Fix the database settings after the first start**: set `configurationDir` and `sml.security.folder` in `bdmsl_configuration` to `/data/domisml/security` (the seed says `/opt/smlconf/`), then let DomiSML create its own encryption key and clear the unused vendor password ciphertexts. See [Security path & keys](sdk-sml/07-security-path-and-keys.md).
+6. **systemd** unit `domisml.service` (same pattern as `domismp.service`), enable, then reboot and check both apps.
+
+**Verify.**
+
+```bash
+curl -sS -o /dev/null -w 'DomiSMP %{http_code}\n' http://127.0.0.1:8080/smp/
+curl -sS -o /dev/null -w 'DomiSML %{http_code}\n' http://127.0.0.1:8081/edelivery-sml/
+sudo ls -l /data/domisml/logs/
+```
+
+Both return 200, and `domisml.log` is growing under `/data`. Then power off and take the snapshot **`03-DomiSML-Installed`**.
+
+**Went wrong for us.** The logs landed in `/tmp/hsperfdata_domisml/logs`, the seed security path pointed at `/opt/smlconf/`, the vendor ciphertexts didn't decrypt, and a global JNDI pool was created for every Tomcat webapp. See [Failures & fixes](sdk-sml/11-failures-and-fixes.md).
+
+---
+
+## 20. What's next
+
+Local DNS, the SML subdomain, SMP registration and participant publication. See [Next steps](next-steps.md).
 
 ---
 
@@ -685,9 +737,9 @@ The generic DomiSMP is running, but it is **not yet configured for Swedish SDK**
 | `hostname` | `blue` | `red` | `sdk-core` |
 | `ens34` | 192.168.50.10 | 192.168.50.20 | 192.168.50.30 |
 | `/data` mounted | 200 G | 200 G | 100 G |
-| Service | `domibus` active | `domibus` active | `domismp` active |
-| HTTP | `/domibus/` 302, MSH 200, WS 200 | same | `/smp/` 200 |
-| Database | `domibus_schema`, 119 tables | same | `smp`, 50 tables |
+| Service | `domibus` active | `domibus` active | `domismp` + `domisml` active |
+| HTTP | `/domibus/` 302, MSH 200, WS 200 | same | `:8080/smp/` 200, `:8081/edelivery-sml/` 200 |
+| Database | `domibus_schema`, 119 tables | same | `smp` 50 tables, `sml_schema` 19 tables |
 | Proven | AS4 both ways + reboot | AS4 both ways + reboot | UI + reboot + snapshot |
 
-Full values: [Known-good state (Blue/Red)](domibus/18-known-good-state.md) and [sdk-core known-good state](sdk-core/13-known-good-state.md).
+Full values: [Known-good state (Blue/Red)](domibus/18-known-good-state.md), [sdk-core DomiSMP](sdk-core/13-known-good-state.md) and [SMP signing & DomiSML](sdk-sml/14-known-good-state.md).

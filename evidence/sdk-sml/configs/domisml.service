@@ -1,0 +1,28 @@
+[Unit]
+Description=DomiSML 5.1.0.3
+After=network-online.target mysql.service
+Wants=network-online.target
+Requires=mysql.service
+RequiresMountsFor=/data
+
+[Service]
+Type=forking
+User=domisml
+Group=domisml
+WorkingDirectory=/opt/domisml
+Environment=JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
+Environment=CATALINA_HOME=/opt/domisml
+Environment=CATALINA_BASE=/opt/domisml
+Environment=CATALINA_PID=/opt/domisml/temp/tomcat.pid
+ExecStart=/opt/domisml/bin/startup.sh
+ExecStop=/opt/domisml/bin/shutdown.sh 30 -force
+PIDFile=/opt/domisml/temp/tomcat.pid
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=180
+TimeoutStopSec=60
+LimitNOFILE=65536
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

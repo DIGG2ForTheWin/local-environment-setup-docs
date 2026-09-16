@@ -59,7 +59,7 @@ The laboratory was extended on 2026-09-16 with a third VM:
 
 The generic DomiSMP baseline is complete, but it is **not yet claimed to be SDK-conformant**. SDK-specific domain, participant, SML/DNS, certificate and service-metadata configuration begins after the documented snapshot.
 
-The DomiSMP build is documented in **Part 2 — sdk-core** ([Concepts](docs/sdk-core/01-concepts.md) to [Screenshots](docs/sdk-core/17-screenshots.md)); what comes next is in [Next steps](docs/next-steps.md). All VMware snapshots are listed in [VMware snapshots](docs/reference/snapshots.md).
+The DomiSMP build is documented in **Part 2 — sdk-core** ([Concepts](docs/sdk-core/01-concepts.md) to [Screenshots](docs/sdk-core/17-screenshots.md)). **Part 3 — SMP signing & DomiSML** ([Concepts](docs/sdk-sml/01-concepts.md) to [Screenshots](docs/sdk-sml/17-screenshots.md)) adds a lab signing PKI, the DomiSMP `sdk-lab` domain and a local DomiSML on port 8081. What comes next is in [Next steps](docs/next-steps.md). All VMware snapshots are listed in [VMware snapshots](docs/reference/snapshots.md).
 
 ## Documentation map
 
@@ -112,6 +112,26 @@ The DomiSMP build is documented in **Part 2 — sdk-core** ([Concepts](docs/sdk-
 - [Raw values](docs/sdk-core/15-raw-values.md)
 - [Timeline](docs/sdk-core/16-timeline.md)
 - [Screenshots](docs/sdk-core/17-screenshots.md)
+
+**Part 3 — sdk-core (SMP signing & DomiSML)**
+
+- [Concepts](docs/sdk-sml/01-concepts.md)
+- [PKI](docs/sdk-sml/02-pki.md)
+- [SMP keystore](docs/sdk-sml/03-smp-keystore.md)
+- [sdk-lab domain](docs/sdk-sml/04-sdk-lab-domain.md)
+- [Database](docs/sdk-sml/05-database.md)
+- [Tomcat runtime](docs/sdk-sml/06-tomcat-runtime.md)
+- [Security path & keys](docs/sdk-sml/07-security-path-and-keys.md)
+- [Logging](docs/sdk-sml/08-logging.md)
+- [JNDI](docs/sdk-sml/09-jndi.md)
+- [systemd & reboot](docs/sdk-sml/10-systemd-reboot.md)
+- [Failures & fixes](docs/sdk-sml/11-failures-and-fixes.md)
+- [Security](docs/sdk-sml/12-security.md)
+- [Runbook](docs/sdk-sml/13-runbook.md)
+- [Known-good state](docs/sdk-sml/14-known-good-state.md)
+- [Commands](docs/sdk-sml/15-commands.md)
+- [Timeline](docs/sdk-sml/16-timeline.md)
+- [Screenshots](docs/sdk-sml/17-screenshots.md)
 
 **Reference**
 

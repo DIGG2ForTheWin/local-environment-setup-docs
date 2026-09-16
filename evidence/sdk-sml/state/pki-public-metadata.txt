@@ -1,0 +1,17 @@
+SDK Lab SMP Root CA
+Subject/Issuer: C=SE, O=SDK Lab, OU=eDelivery, CN=SDK Lab SMP Root CA
+Serial: 03572F68D6E0338BF05A7AD0F11E5B461A65AAD0
+SHA256: FE:E1:66:53:81:A2:FA:0F:5F:02:69:38:60:E2:49:1E:FF:FA:82:FF:DF:D3:66:04:57:DE:BA:87:47:40:2F:26
+Basic Constraints: CA:TRUE, pathlen:1
+Key Usage: Certificate Sign, CRL Sign
+
+sdk-core SMP Signing
+Subject: C=SE, O=SDK Lab, OU=eDelivery, CN=sdk-core SMP Signing
+Issuer: C=SE, O=SDK Lab, OU=eDelivery, CN=SDK Lab SMP Root CA
+Serial: 64B9F463D430DE4C1DAEDDB25B511A3083CDB447
+SHA256: 96:3B:D5:2B:A6:D2:8C:14:69:93:20:30:D4:7B:DC:95:D0:26:EE:0A:29:CC:9F:DB:B6:C8:80:34:37:E4:DF:ED
+Basic Constraints: CA:FALSE
+Key Usage: Digital Signature
+DomiSMP alias: sdk_lab_smp_signing
+
+No private key material is included in this package.

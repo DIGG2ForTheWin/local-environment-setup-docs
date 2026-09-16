@@ -1,0 +1,14 @@
+hostname: sdk-core
+/data: /dev/sdb1 ext4, persistent
+MySQL: active after cold reboot
+DomiSMP: enabled, active, Java present, :8080, /smp/ HTTP 200
+DomiSML: enabled, active, Java present, :8081, /edelivery-sml/ HTTP 200
+DomiSMP domain: sdk-lab
+DomiSMP response-signing alias: sdk_lab_smp_signing
+DomiSMP resource type: OASIS SMP 1.0 / smp-1
+DomiSMP domain member: system -> ADMIN
+DomiSML DB: sml_schema, 19 tables
+DomiSML security folder: /data/domisml/security
+DomiSML logs: /data/domisml/logs
+Cold reboot proof: PASS
+Next snapshot boundary: 03-domisml-installed (creation itself not evidenced in transcript)

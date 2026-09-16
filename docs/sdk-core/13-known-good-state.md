@@ -103,4 +103,4 @@ The following are **not** yet configured:
 - final HTTPS/mTLS exposure;
 - removal/hardening of default Tomcat webapps.
 
-This boundary is intentional and is why the snapshot is named `02-domismp-installed`; the SDK milestone will be `03-SDK-Configured`. All snapshots: [VMware snapshots](../reference/snapshots.md).
+This boundary is intentional and is why the snapshot is named `02-domismp-installed`; the next milestone (Part 3) is `03-DomiSML-Installed`. All snapshots: [VMware snapshots](../reference/snapshots.md).

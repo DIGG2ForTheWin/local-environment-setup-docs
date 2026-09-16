@@ -1,0 +1,18 @@
+<Context>
+  <Resource
+      name="jdbc/edelivery"
+      auth="Container"
+      type="javax.sql.DataSource"
+      factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+      driverClassName="com.mysql.cj.jdbc.Driver"
+      url="jdbc:mysql://localhost:3306/sml_schema?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"
+      username="sml_dbuser"
+      password="<REDACTED_DB_PASSWORD>"
+      maxTotal="20"
+      maxIdle="8"
+      minIdle="2"
+      maxWaitMillis="10000"
+      validationQuery="SELECT 1"
+      testOnBorrow="true"
+  />
+</Context>

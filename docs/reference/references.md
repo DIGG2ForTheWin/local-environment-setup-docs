@@ -55,6 +55,8 @@ All URLs verified (HTTP 200) on 2026-09-16.
 | MySQL Connector/J 8.4.0 | <https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.4.0/mysql-connector-j-8.4.0.jar> |
 | DomiSMP 5.2.1.3 WAR | <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/edelivery/smp/5.2.1.3/smp-5.2.1.3.war> |
 | DomiSMP 5.2.1.3 setup bundle | <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/edelivery/smp/5.2.1.3/smp-5.2.1.3-setup.zip> |
+| DomiSML 5.1.0.3 WAR | <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/bdmsl/bdmsl-webapp/5.1.0.3/bdmsl-webapp-5.1.0.3.war> (MD5 `a4a3c145e67405c6c2dbf7ae110ccd5c`) |
+| DomiSML 5.1.0.3 setup bundle | <https://ec.europa.eu/digital-building-blocks/artifact/repository/eDelivery/eu/europa/ec/bdmsl/bdmsl-webapp/5.1.0.3/bdmsl-webapp-5.1.0.3-setup.zip> (MD5 `970a17bc8a709515499230659858c9a4`) |
 | Apache Tomcat 10.1.59 | <https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.59/bin/apache-tomcat-10.1.59.tar.gz> |
 
 ## Scope note

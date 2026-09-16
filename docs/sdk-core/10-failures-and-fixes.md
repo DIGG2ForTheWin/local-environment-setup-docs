@@ -227,4 +227,4 @@ A long descriptive snapshot name was initially suggested. It was replaced with a
 02-domismp-installed
 ```
 
-**Follow-up (2026-09-16):** the Snapshot Manager shows that every earlier snapshot, on Blue, on Red and sdk-core `01-Network-Ready`, uses **Title-Case** words (`NN-Title-Case`), so the lowercase `02-domismp-installed` is the one inconsistent name. Future snapshots should use the original pattern, e.g. `03-SDK-Configured`. See [VMware snapshots](../reference/snapshots.md#naming-convention-for-new-snapshots).
+**Follow-up (2026-09-16):** the Snapshot Manager shows that every earlier snapshot, on Blue, on Red and sdk-core `01-Network-Ready`, uses **Title-Case** words (`NN-Title-Case`), so the lowercase `02-domismp-installed` is the one inconsistent name. Future snapshots should use the original pattern, e.g. `03-DomiSML-Installed`. See [VMware snapshots](../reference/snapshots.md#naming-convention-for-new-snapshots).

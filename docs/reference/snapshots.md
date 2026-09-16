@@ -38,8 +38,9 @@ Red has **no `00`** snapshot because it *is* a clone of Blue's `00-Base-OS-Clone
 |---|---|---|---|
 | 01 | `01-Network-Ready` | Ubuntu base with static IP `192.168.50.30` | powered off |
 | 02 | `02-domismp-installed` | 100 GB `/data`, DomiSMP 5.2.1.3 on Tomcat 10.1.59, `smp` DB, admin password changed, systemd, cold reboot passed | powered off |
+| 03 | `03-DomiSML-Installed` *(planned, not yet taken)* | SMP signing PKI, DomiSMP `sdk-lab` domain, DomiSML 5.1.0.3 on :8081, both apps cold-reboot proven ([Part 3](../sdk-sml/14-known-good-state.md)) | take powered off |
 
-sdk-core has no `00` snapshot.
+sdk-core has no `00` snapshot. The Part 3 package proposed `03-domisml-installed` (lowercase); the table uses the lab convention instead.
 
 ### About `02-domismp-installed`
 
@@ -84,8 +85,8 @@ sdk-core `02-domismp-installed` broke this pattern: it's all lowercase. When it 
 **Use the original pattern from now on**, for example:
 
 ```text
-03-SDK-Configured
-04-SDK-Blue-Red-Discovery-Working
+03-DomiSML-Installed
+04-SML-DNS-Discovery-Working
 ```
 
 Optionally, rename the existing snapshot in VMware for consistency: **VM → Snapshot → Snapshot Manager**, select `02-domismp-installed`, change *Name* to `02-DomiSMP-Installed`, then update this page. Renaming a snapshot doesn't change its contents.

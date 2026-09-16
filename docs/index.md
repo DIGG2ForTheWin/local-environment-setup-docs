@@ -59,7 +59,7 @@ The laboratory was extended on 2026-09-16 with a third VM:
 
 The generic DomiSMP baseline is complete, but it is **not yet claimed to be SDK-conformant**. SDK-specific domain, participant, SML/DNS, certificate and service-metadata configuration begins after the documented snapshot.
 
-The DomiSMP build is documented in **Part 2 — sdk-core** ([Concepts](sdk-core/01-concepts.md) to [Screenshots](sdk-core/17-screenshots.md)); what comes next is in [Next steps](next-steps.md). All VMware snapshots are listed in [VMware snapshots](reference/snapshots.md).
+The DomiSMP build is documented in **Part 2 — sdk-core** ([Concepts](sdk-core/01-concepts.md) to [Screenshots](sdk-core/17-screenshots.md)). **Part 3 — SMP signing & DomiSML** ([Concepts](sdk-sml/01-concepts.md) to [Screenshots](sdk-sml/17-screenshots.md)) adds a lab signing PKI, the DomiSMP `sdk-lab` domain and a local DomiSML on port 8081. What comes next is in [Next steps](next-steps.md). All VMware snapshots are listed in [VMware snapshots](reference/snapshots.md).
 
 ## Documentation map
 
@@ -112,6 +112,26 @@ The DomiSMP build is documented in **Part 2 — sdk-core** ([Concepts](sdk-core/
 - [Raw values](sdk-core/15-raw-values.md)
 - [Timeline](sdk-core/16-timeline.md)
 - [Screenshots](sdk-core/17-screenshots.md)
+
+**Part 3 — sdk-core (SMP signing & DomiSML)**
+
+- [Concepts](sdk-sml/01-concepts.md)
+- [PKI](sdk-sml/02-pki.md)
+- [SMP keystore](sdk-sml/03-smp-keystore.md)
+- [sdk-lab domain](sdk-sml/04-sdk-lab-domain.md)
+- [Database](sdk-sml/05-database.md)
+- [Tomcat runtime](sdk-sml/06-tomcat-runtime.md)
+- [Security path & keys](sdk-sml/07-security-path-and-keys.md)
+- [Logging](sdk-sml/08-logging.md)
+- [JNDI](sdk-sml/09-jndi.md)
+- [systemd & reboot](sdk-sml/10-systemd-reboot.md)
+- [Failures & fixes](sdk-sml/11-failures-and-fixes.md)
+- [Security](sdk-sml/12-security.md)
+- [Runbook](sdk-sml/13-runbook.md)
+- [Known-good state](sdk-sml/14-known-good-state.md)
+- [Commands](sdk-sml/15-commands.md)
+- [Timeline](sdk-sml/16-timeline.md)
+- [Screenshots](sdk-sml/17-screenshots.md)
 
 **Reference**
 
