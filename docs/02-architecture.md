@@ -86,7 +86,7 @@ flowchart TB
     Java[Temurin Java 21 / Tomcat 10.1.54]
     Domibus[Domibus 5.2.1.3 WAR]
     MySQL[MySQL 8.0.46]
-    Data[/data/domibus/payloads]
+    Data["/data/domibus/payloads"]
 
     Systemd --> Java
     Java --> Domibus
