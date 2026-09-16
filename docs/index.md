@@ -36,7 +36,7 @@ The validated business payload was:
 
 ## Start here
 
-New to the lab? Follow **[Build it step by step](00-build-guide.md)**. It walks through the whole build in order, with exact download links, and links into the detailed chapters below.
+New to the lab? Follow **[Build it step by step](build-guide.md)**. It walks through the whole build in order, with exact download links, and links into the detailed chapters below.
 
 Published site: <https://digg2forthewin.github.io/local-environment-setup-docs/>
 
@@ -59,55 +59,65 @@ The laboratory was extended on 2026-09-16 with a third VM:
 
 The generic DomiSMP baseline is complete, but it is **not yet claimed to be SDK-conformant**. SDK-specific domain, participant, SML/DNS, certificate and service-metadata configuration begins after the documented snapshot.
 
-The DomiSMP build is documented in [SDK and DomiSMP concepts](25-sdk-and-domismp-concepts.md) through [Next SDK configuration](43-next-sdk-configuration.md).
+The DomiSMP build is documented in **Part 2 — sdk-core** ([Concepts](sdk-core/01-concepts.md) to [Screenshots](sdk-core/17-screenshots.md)); what comes next is in [Next steps](next-steps.md). All VMware snapshots are listed in [VMware snapshots](reference/snapshots.md).
 
 ## Documentation map
 
-- [Build it step by step](00-build-guide.md)
-- [Concepts](01-concepts.md)
-- [Architecture](02-architecture.md)
-- [Inventory and versions](03-inventory.md)
-- [VMware and networking](04-vmware-network.md)
-- [Ubuntu and storage](05-ubuntu-storage.md)
-- [Java and MySQL](06-java-mysql.md)
-- [Domibus installation](07-domibus-installation.md)
-- [Database setup](08-database.md)
-- [Cryptography and PMode](09-crypto-and-pmode.md)
-- [Blue gateway](10-blue-gateway.md)
-- [Red gateway](11-red-gateway.md)
-- [AS4 validation](12-as4-validation.md)
-- [systemd and reboot validation](13-systemd-and-reboot.md)
-- [Failures and fixes](14-failures-and-fixes.md)
-- [Security](15-security.md)
-- [Operations runbook](16-operations-runbook.md)
-- [Known-good evidence](17-evidence-and-known-good-state.md)
-- [Glossary](18-glossary.md)
-- [Next steps](19-next-steps.md)
-- [Chronological timeline](20-chronological-timeline.md)
-- [Command reference](21-command-reference.md)
-- [Raw observed values](22-raw-observed-values.md)
-- [SOAP extraction and test commands](23-soap-extraction-and-test-commands.md)
-- [Screenshot Evidence](24-screenshot-evidence.md)
-- [SDK and DomiSMP concepts](25-sdk-and-domismp-concepts.md)
-- [sdk-core inventory](26-sdk-core-inventory.md)
-- [sdk-core storage](27-sdk-core-storage.md)
-- [DomiSMP distribution inspection](28-domismp-distribution-inspection.md)
-- [DomiSMP database](29-domismp-database.md)
-- [Tomcat and runtime](30-domismp-tomcat-runtime.md)
-- [JNDI and DomiSMP configuration](31-domismp-configuration.md)
-- [First startup and UI](32-domismp-first-start-ui.md)
-- [systemd and cold reboot](33-domismp-systemd-reboot.md)
-- [DomiSMP failures and fixes](34-domismp-failures-and-fixes.md)
-- [sdk-core security](35-sdk-core-security.md)
-- [sdk-core operations runbook](36-sdk-core-operations-runbook.md)
-- [sdk-core known-good state](37-sdk-core-known-good-state.md)
-- [sdk-core command reference](38-sdk-core-command-reference.md)
-- [sdk-core raw observed values](39-sdk-core-raw-observed-values.md)
-- [sdk-core chronological timeline](40-sdk-core-timeline.md)
-- [sdk-core screenshot evidence](41-sdk-core-screenshot-evidence.md)
-- [Snapshot baseline](42-sdk-core-snapshot-baseline.md)
-- [Next SDK configuration](43-next-sdk-configuration.md)
-- [References](44-references.md)
+**Start here**
+
+- [Build it step by step](build-guide.md)
+- [Next steps](next-steps.md)
+
+**Part 1 — Blue & Red (Domibus)**
+
+- [Concepts](domibus/01-concepts.md)
+- [Architecture](domibus/02-architecture.md)
+- [Inventory](domibus/03-inventory.md)
+- [VMware & network](domibus/04-vmware-network.md)
+- [Storage](domibus/05-storage.md)
+- [Java & MySQL](domibus/06-java-mysql.md)
+- [Installation](domibus/07-installation.md)
+- [Database](domibus/08-database.md)
+- [Crypto & PMode](domibus/09-crypto-pmode.md)
+- [Blue gateway](domibus/10-blue-gateway.md)
+- [Red gateway](domibus/11-red-gateway.md)
+- [AS4 validation](domibus/12-as4-validation.md)
+- [SOAP test commands](domibus/13-soap-test-commands.md)
+- [systemd & reboot](domibus/14-systemd-reboot.md)
+- [Failures & fixes](domibus/15-failures-and-fixes.md)
+- [Security](domibus/16-security.md)
+- [Runbook](domibus/17-runbook.md)
+- [Known-good state](domibus/18-known-good-state.md)
+- [Commands](domibus/19-commands.md)
+- [Raw values](domibus/20-raw-values.md)
+- [Timeline](domibus/21-timeline.md)
+- [Screenshots](domibus/22-screenshots.md)
+
+**Part 2 — sdk-core (DomiSMP)**
+
+- [Concepts](sdk-core/01-concepts.md)
+- [Inventory](sdk-core/02-inventory.md)
+- [Storage](sdk-core/03-storage.md)
+- [Distribution](sdk-core/04-distribution.md)
+- [Database](sdk-core/05-database.md)
+- [Tomcat runtime](sdk-core/06-tomcat-runtime.md)
+- [Configuration](sdk-core/07-configuration.md)
+- [First start & UI](sdk-core/08-first-start-ui.md)
+- [systemd & reboot](sdk-core/09-systemd-reboot.md)
+- [Failures & fixes](sdk-core/10-failures-and-fixes.md)
+- [Security](sdk-core/11-security.md)
+- [Runbook](sdk-core/12-runbook.md)
+- [Known-good state](sdk-core/13-known-good-state.md)
+- [Commands](sdk-core/14-commands.md)
+- [Raw values](sdk-core/15-raw-values.md)
+- [Timeline](sdk-core/16-timeline.md)
+- [Screenshots](sdk-core/17-screenshots.md)
+
+**Reference**
+
+- [VMware snapshots](reference/snapshots.md)
+- [Glossary](reference/glossary.md)
+- [References](reference/references.md)
 
 ## Documentation philosophy
 
@@ -149,11 +159,11 @@ This repository separates:
 - **exact commands** retained from the setup conversation;
 - **reconstructed procedures** where the final state is known but the literal earliest command transcript was not retained.
 
-Where an exact command was not retained, the documentation marks the step as reconstructed rather than silently inventing it. The root-LVM expansion commands, once thought lost, were recovered from screenshot `20260915-185903` and are now documented in [Ubuntu and storage](05-ubuntu-storage.md).
+Where an exact command was not retained, the documentation marks the step as reconstructed rather than silently inventing it. The root-LVM expansion commands, once thought lost, were recovered from screenshot `20260915-185903` and are now documented in [Ubuntu and storage](domibus/05-storage.md).
 
 ## Visual evidence archive
 
-The documentation now includes a reviewed screenshot archive from the actual build. It begins with VMware VMnet3 creation and VM provisioning, continues through Ubuntu/LVM/storage/network/MySQL/Domibus configuration, and ends with PMode/admin-recovery diagnostics. See the full [Screenshot Evidence Gallery](24-screenshot-evidence.md).
+The documentation now includes a reviewed screenshot archive from the actual build. It begins with VMware VMnet3 creation and VM provisioning, continues through Ubuntu/LVM/storage/network/MySQL/Domibus configuration, and ends with PMode/admin-recovery diagnostics. See the full [Screenshot Evidence Gallery](domibus/22-screenshots.md).
 
 Two raw source screenshots contained generated Domibus administrator passwords and were intentionally excluded from the published assets. Two further published screenshots were redacted on 2026-09-16 (see *Secret policy*).
 

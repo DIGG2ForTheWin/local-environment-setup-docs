@@ -20,50 +20,102 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Home: index.md
-  - Build it step by step: 00-build-guide.md
-  - Concepts: 01-concepts.md
-  - Architecture: 02-architecture.md
-  - Inventory: 03-inventory.md
-  - VMware & Network: 04-vmware-network.md
-  - Ubuntu & Storage: 05-ubuntu-storage.md
-  - Java & MySQL: 06-java-mysql.md
-  - Domibus Installation: 07-domibus-installation.md
-  - Database: 08-database.md
-  - Crypto & PMode: 09-crypto-and-pmode.md
-  - Blue Gateway: 10-blue-gateway.md
-  - Red Gateway: 11-red-gateway.md
-  - AS4 Validation: 12-as4-validation.md
-  - systemd & Reboot: 13-systemd-and-reboot.md
-  - Failures & Fixes: 14-failures-and-fixes.md
-  - Security: 15-security.md
-  - Operations Runbook: 16-operations-runbook.md
-  - Known-good Evidence: 17-evidence-and-known-good-state.md
-  - Glossary: 18-glossary.md
-  - Next Steps: 19-next-steps.md
-  - Timeline: 20-chronological-timeline.md
-  - Commands: 21-command-reference.md
-  - Raw Observed Values: 22-raw-observed-values.md
-  - SOAP Extraction & Tests: 23-soap-extraction-and-test-commands.md
-  - Screenshot Evidence: 24-screenshot-evidence.md
-  - SDK & DomiSMP Concepts: 25-sdk-and-domismp-concepts.md
-  - sdk-core Inventory: 26-sdk-core-inventory.md
-  - sdk-core Storage: 27-sdk-core-storage.md
-  - DomiSMP Distribution: 28-domismp-distribution-inspection.md
-  - DomiSMP Database: 29-domismp-database.md
-  - DomiSMP Tomcat Runtime: 30-domismp-tomcat-runtime.md
-  - DomiSMP Configuration: 31-domismp-configuration.md
-  - First Start & UI: 32-domismp-first-start-ui.md
-  - DomiSMP systemd & Reboot: 33-domismp-systemd-reboot.md
-  - DomiSMP Failures & Fixes: 34-domismp-failures-and-fixes.md
-  - sdk-core Security: 35-sdk-core-security.md
-  - sdk-core Operations: 36-sdk-core-operations-runbook.md
-  - sdk-core Known-good State: 37-sdk-core-known-good-state.md
-  - sdk-core Commands: 38-sdk-core-command-reference.md
-  - sdk-core Raw Values: 39-sdk-core-raw-observed-values.md
-  - sdk-core Timeline: 40-sdk-core-timeline.md
-  - sdk-core Screenshots: 41-sdk-core-screenshot-evidence.md
-  - sdk-core Snapshot: 42-sdk-core-snapshot-baseline.md
-  - Next SDK Configuration: 43-next-sdk-configuration.md
-  - References: 44-references.md
+  - "Start here":
+      - "Home": index.md
+      - "Build it step by step": build-guide.md
+      - "Next steps": next-steps.md
+  - "Part 1 — Blue & Red (Domibus)":
+      - "Concepts": domibus/01-concepts.md
+      - "Architecture": domibus/02-architecture.md
+      - "Inventory": domibus/03-inventory.md
+      - "VMware & network": domibus/04-vmware-network.md
+      - "Storage": domibus/05-storage.md
+      - "Java & MySQL": domibus/06-java-mysql.md
+      - "Installation": domibus/07-installation.md
+      - "Database": domibus/08-database.md
+      - "Crypto & PMode": domibus/09-crypto-pmode.md
+      - "Blue gateway": domibus/10-blue-gateway.md
+      - "Red gateway": domibus/11-red-gateway.md
+      - "AS4 validation": domibus/12-as4-validation.md
+      - "SOAP test commands": domibus/13-soap-test-commands.md
+      - "systemd & reboot": domibus/14-systemd-reboot.md
+      - "Failures & fixes": domibus/15-failures-and-fixes.md
+      - "Security": domibus/16-security.md
+      - "Runbook": domibus/17-runbook.md
+      - "Known-good state": domibus/18-known-good-state.md
+      - "Commands": domibus/19-commands.md
+      - "Raw values": domibus/20-raw-values.md
+      - "Timeline": domibus/21-timeline.md
+      - "Screenshots": domibus/22-screenshots.md
+  - "Part 2 — sdk-core (DomiSMP)":
+      - "Concepts": sdk-core/01-concepts.md
+      - "Inventory": sdk-core/02-inventory.md
+      - "Storage": sdk-core/03-storage.md
+      - "Distribution": sdk-core/04-distribution.md
+      - "Database": sdk-core/05-database.md
+      - "Tomcat runtime": sdk-core/06-tomcat-runtime.md
+      - "Configuration": sdk-core/07-configuration.md
+      - "First start & UI": sdk-core/08-first-start-ui.md
+      - "systemd & reboot": sdk-core/09-systemd-reboot.md
+      - "Failures & fixes": sdk-core/10-failures-and-fixes.md
+      - "Security": sdk-core/11-security.md
+      - "Runbook": sdk-core/12-runbook.md
+      - "Known-good state": sdk-core/13-known-good-state.md
+      - "Commands": sdk-core/14-commands.md
+      - "Raw values": sdk-core/15-raw-values.md
+      - "Timeline": sdk-core/16-timeline.md
+      - "Screenshots": sdk-core/17-screenshots.md
+  - "Reference":
+      - "VMware snapshots": reference/snapshots.md
+      - "Glossary": reference/glossary.md
+      - "References": reference/references.md
 
+plugins:
+  - search
+  - redirects:
+      redirect_maps:
+        '00-build-guide.md': 'build-guide.md'
+        '01-concepts.md': 'domibus/01-concepts.md'
+        '02-architecture.md': 'domibus/02-architecture.md'
+        '03-inventory.md': 'domibus/03-inventory.md'
+        '04-vmware-network.md': 'domibus/04-vmware-network.md'
+        '05-ubuntu-storage.md': 'domibus/05-storage.md'
+        '06-java-mysql.md': 'domibus/06-java-mysql.md'
+        '07-domibus-installation.md': 'domibus/07-installation.md'
+        '08-database.md': 'domibus/08-database.md'
+        '09-crypto-and-pmode.md': 'domibus/09-crypto-pmode.md'
+        '10-blue-gateway.md': 'domibus/10-blue-gateway.md'
+        '11-red-gateway.md': 'domibus/11-red-gateway.md'
+        '12-as4-validation.md': 'domibus/12-as4-validation.md'
+        '13-systemd-and-reboot.md': 'domibus/14-systemd-reboot.md'
+        '14-failures-and-fixes.md': 'domibus/15-failures-and-fixes.md'
+        '15-security.md': 'domibus/16-security.md'
+        '16-operations-runbook.md': 'domibus/17-runbook.md'
+        '17-evidence-and-known-good-state.md': 'domibus/18-known-good-state.md'
+        '18-glossary.md': 'reference/glossary.md'
+        '19-next-steps.md': 'next-steps.md'
+        '20-chronological-timeline.md': 'domibus/21-timeline.md'
+        '21-command-reference.md': 'domibus/19-commands.md'
+        '22-raw-observed-values.md': 'domibus/20-raw-values.md'
+        '23-soap-extraction-and-test-commands.md': 'domibus/13-soap-test-commands.md'
+        '24-screenshot-evidence.md': 'domibus/22-screenshots.md'
+        '25-sdk-and-domismp-concepts.md': 'sdk-core/01-concepts.md'
+        '26-sdk-core-inventory.md': 'sdk-core/02-inventory.md'
+        '27-sdk-core-storage.md': 'sdk-core/03-storage.md'
+        '28-domismp-distribution-inspection.md': 'sdk-core/04-distribution.md'
+        '29-domismp-database.md': 'sdk-core/05-database.md'
+        '30-domismp-tomcat-runtime.md': 'sdk-core/06-tomcat-runtime.md'
+        '31-domismp-configuration.md': 'sdk-core/07-configuration.md'
+        '32-domismp-first-start-ui.md': 'sdk-core/08-first-start-ui.md'
+        '33-domismp-systemd-reboot.md': 'sdk-core/09-systemd-reboot.md'
+        '34-domismp-failures-and-fixes.md': 'sdk-core/10-failures-and-fixes.md'
+        '35-sdk-core-security.md': 'sdk-core/11-security.md'
+        '36-sdk-core-operations-runbook.md': 'sdk-core/12-runbook.md'
+        '37-sdk-core-known-good-state.md': 'sdk-core/13-known-good-state.md'
+        '38-sdk-core-command-reference.md': 'sdk-core/14-commands.md'
+        '39-sdk-core-raw-observed-values.md': 'sdk-core/15-raw-values.md'
+        '40-sdk-core-timeline.md': 'sdk-core/16-timeline.md'
+        '41-sdk-core-screenshot-evidence.md': 'sdk-core/17-screenshots.md'
+        '42-sdk-core-snapshot-baseline.md': 'reference/snapshots.md'
+        '43-next-sdk-configuration.md': 'next-steps.md'
+        '44-references.md': 'reference/references.md'
